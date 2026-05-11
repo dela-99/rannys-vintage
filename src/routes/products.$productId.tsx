@@ -84,7 +84,7 @@ function ProductPage() {
             <div className="flex flex-col-reverse gap-4 md:flex-row">
               {product.gallery.length > 1 && (
                 <div className="flex gap-3 overflow-x-auto md:flex-col">
-                  {product.gallery.map((img, i) => (
+                  {product.gallery.map((img: string, i: number) => (
                     <button
                       key={i}
                       onClick={() => setActiveImage(i)}
@@ -156,7 +156,7 @@ function ProductPage() {
                     <button className="text-primary hover:underline">Size guide</button>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {product.sizes.map((s) => (
+                    {product.sizes.map((s: string) => (
                       <button
                         key={s}
                         onClick={() => setSize(s)}
