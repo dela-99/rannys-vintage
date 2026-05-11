@@ -1,19 +1,20 @@
 import { Link } from "@tanstack/react-router";
 import { Search, ShoppingBag, Heart, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
-  { label: "New", to: "/" },
-  { label: "Dresses", to: "/" },
-  { label: "Shoes", to: "/" },
-  { label: "Jewelry", to: "/" },
-  { label: "Chains", to: "/" },
-  { label: "About", to: "/" },
+  { label: "Shop", to: "/shop" as const },
+  { label: "Dresses", to: "/shop" as const },
+  { label: "Shoes", to: "/shop" as const },
+  { label: "Jewelry", to: "/shop" as const },
+  { label: "Chains", to: "/shop" as const },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { count, openDrawer } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -29,11 +30,7 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-20 md:px-8">
-        <button
-          className="md:hidden"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-        >
+        <button className="md:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu className="h-6 w-6" />
         </button>
 
@@ -45,10 +42,11 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((l) => (
+          {navLinks.map((l, i) => (
             <Link
-              key={l.label}
+              key={`${l.label}-${i}`}
               to={l.to}
+              activeProps={{ className: "text-primary" }}
               className="font-accent text-xs font-medium text-foreground/80 transition hover:text-primary"
             >
               {l.label}
@@ -57,16 +55,27 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3 md:gap-5">
-          <button aria-label="Search" className="hidden md:block text-foreground/80 hover:text-primary">
+          <Link
+            to="/shop"
+            aria-label="Search"
+            className="hidden text-foreground/80 hover:text-primary md:block"
+          >
             <Search className="h-5 w-5" />
-          </button>
-          <button aria-label="Wishlist" className="hidden md:block text-foreground/80 hover:text-primary">
+          </Link>
+          <button
+            aria-label="Wishlist"
+            className="hidden text-foreground/80 hover:text-primary md:block"
+          >
             <Heart className="h-5 w-5" />
           </button>
-          <button aria-label="Cart" className="relative text-foreground/80 hover:text-primary">
+          <button
+            aria-label="Cart"
+            onClick={openDrawer}
+            className="relative text-foreground/80 hover:text-primary"
+          >
             <ShoppingBag className="h-5 w-5" />
             <span className="absolute -right-2 -top-2 grid h-4 w-4 place-items-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground">
-              0
+              {count}
             </span>
           </button>
         </div>
@@ -81,9 +90,9 @@ export function Navbar() {
             </button>
           </div>
           <nav className="flex flex-col gap-2 px-6 pt-8">
-            {navLinks.map((l) => (
+            {navLinks.map((l, i) => (
               <Link
-                key={l.label}
+                key={`${l.label}-${i}`}
                 to={l.to}
                 onClick={() => setOpen(false)}
                 className="font-display border-b border-border py-4 text-2xl text-foreground hover:text-primary"
@@ -91,6 +100,13 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <Link
+              to="/cart"
+              onClick={() => setOpen(false)}
+              className="font-display border-b border-border py-4 text-2xl text-foreground hover:text-primary"
+            >
+              Bag ({count})
+            </Link>
           </nav>
         </div>
       )}
