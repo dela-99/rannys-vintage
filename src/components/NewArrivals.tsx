@@ -24,7 +24,7 @@ export function NewArrivals() {
 
         <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 no-scrollbar md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
           {products.slice(0, 4).map((p) => (
-            <div key={p.id} className="w-[78%] flex-shrink-0 snap-start md:w-auto">
+            <div key={p.id} className="w-[78%] shrink-0 snap-start md:w-auto">
               <ProductCard product={p} />
             </div>
           ))}
