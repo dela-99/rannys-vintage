@@ -16,6 +16,7 @@ const categories = [
   { name: "Jewelry" },
   { name: "Chains" },
   { name: "Accessories" },
+
 ];
 
 export function CategoryGrid() {
