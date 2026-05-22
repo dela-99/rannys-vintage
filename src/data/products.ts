@@ -69,8 +69,7 @@ export const products: Product[] = [
     createdAt: daysAgo(14),
     trending: true,
     sizes: dressSizes,
-    description:
-      "Liquid-silk midi in deep emerald. Bias-cut for a flattering, fluid silhouette.",
+    description: "Liquid-silk midi in deep emerald. Bias-cut for a flattering, fluid silhouette.",
   },
   {
     id: "rose-gold-strap-heels",
@@ -121,8 +120,7 @@ export const products: Product[] = [
     stock: 7,
     createdAt: daysAgo(28),
     sizes: dressSizes,
-    description:
-      "Plush velvet mini with a deep cowl back. Designed for nights you'll remember.",
+    description: "Plush velvet mini with a deep cowl back. Designed for nights you'll remember.",
   },
   {
     id: "obsidian-pump",
@@ -147,8 +145,7 @@ export const products: Product[] = [
     gallery: [chains],
     stock: 9,
     createdAt: daysAgo(3),
-    description:
-      "Freshwater pearl drop earrings on hypoallergenic gold-plated posts.",
+    description: "Freshwater pearl drop earrings on hypoallergenic gold-plated posts.",
   },
   {
     id: "ruby-statement-cuff",
@@ -159,8 +156,7 @@ export const products: Product[] = [
     gallery: [chains],
     stock: 6,
     createdAt: daysAgo(35),
-    description:
-      "Hand-set ruby-toned crystals on a sculpted cuff. Make a quiet statement.",
+    description: "Hand-set ruby-toned crystals on a sculpted cuff. Make a quiet statement.",
   },
   {
     id: "gilded-rope-chain",
@@ -171,8 +167,7 @@ export const products: Product[] = [
     gallery: [chains],
     stock: 10,
     createdAt: daysAgo(40),
-    description:
-      "Heavy-gauge rope chain in 18k gold plating. Old-money energy in modern weight.",
+    description: "Heavy-gauge rope chain in 18k gold plating. Old-money energy in modern weight.",
   },
   {
     id: "blush-mule-sandal",
@@ -184,8 +179,7 @@ export const products: Product[] = [
     stock: 0,
     createdAt: daysAgo(22),
     sizes: shoeSizes,
-    description:
-      "A 70mm mule in blush nappa with a sculpted block heel. Effortless, elevated.",
+    description: "A 70mm mule in blush nappa with a sculpted block heel. Effortless, elevated.",
   },
 ];
 

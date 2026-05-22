@@ -84,7 +84,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo<CartState>(() => {
     const count = items.reduce((s, i) => s + i.quantity, 0);
     const subtotal = items.reduce((s, i) => s + i.quantity * i.product.price, 0);
-    return { items, drawerOpen, count, subtotal, add, remove, setQuantity, clear, openDrawer, closeDrawer };
+    return {
+      items,
+      drawerOpen,
+      count,
+      subtotal,
+      add,
+      remove,
+      setQuantity,
+      clear,
+      openDrawer,
+      closeDrawer,
+    };
   }, [items, drawerOpen, add, remove, setQuantity, clear, openDrawer, closeDrawer]);
 
   return <CartCtx.Provider value={value}>{children}</CartCtx.Provider>;
