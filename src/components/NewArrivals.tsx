@@ -13,7 +13,8 @@ export function NewArrivals() {
               Fresh from <em className="text-gradient not-italic">China</em>
             </h2>
             <p className="mt-4 text-muted-foreground">
-              The newest pieces in the studio — handpicked, flown in, and dropped before they sell out.
+              The newest pieces in the studio — handpicked, flown in, and dropped before they sell
+              out.
             </p>
           </div>
           <button className="font-accent group inline-flex items-center gap-2 text-xs font-semibold text-foreground hover:text-primary">

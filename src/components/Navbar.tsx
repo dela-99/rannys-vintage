@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Search, ShoppingBag, Heart, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 const navLinks = [
@@ -14,6 +14,8 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [menuMounted, setMenuMounted] = useState(false);
+  const bodyLockRef = useRef<{ overflow: string; paddingRight: string } | null>(null);
   const { count, openDrawer } = useCart();
 
   useEffect(() => {
@@ -22,6 +24,53 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      setMenuMounted(true);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (!menuMounted) {
+      return;
+    }
+
+    if (!open) {
+      return;
+    }
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    bodyLockRef.current = {
+      overflow: document.body.style.overflow,
+      paddingRight: document.body.style.paddingRight,
+    };
+
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      const previousStyles = bodyLockRef.current;
+      if (previousStyles) {
+        document.body.style.overflow = previousStyles.overflow;
+        document.body.style.paddingRight = previousStyles.paddingRight;
+        bodyLockRef.current = null;
+      }
+    };
+  }, [open, menuMounted]);
+
+  const closeMenu = () => setOpen(false);
 
   return (
     <header
@@ -81,33 +130,59 @@ export function Navbar() {
         </div>
       </div>
 
-      {open && (
-        <div className="fixed inset-0 z-50 bg-background animate-[fade-in_0.3s_ease-out_both] md:hidden">
-          <div className="flex h-16 items-center justify-between px-4">
-            <span className="font-display text-2xl font-bold">Ranny&apos;s</span>
-            <button onClick={() => setOpen(false)} aria-label="Close menu">
-              <X className="h-6 w-6" />
-            </button>
-          </div>
-          <nav className="flex flex-col gap-2 px-6 pt-8">
-            {navLinks.map((l, i) => (
+      {menuMounted && (
+        <div
+          className={`fixed inset-0 z-100 md:hidden ${open ? "pointer-events-auto" : "pointer-events-auto"}`}
+          aria-hidden={!open}
+          onTransitionEnd={(event) => {
+            if (event.target !== event.currentTarget) {
+              return;
+            }
+
+            if (!open) {
+              setMenuMounted(false);
+            }
+          }}
+        >
+          <div
+            className={`absolute inset-0 bg-background/70 backdrop-blur-md transition-opacity duration-300 ease-out ${
+              open ? "opacity-100" : "opacity-0"
+            }`}
+            onClick={closeMenu}
+          />
+
+          <div
+            className={`relative flex h-full w-full flex-col bg-background/95 shadow-[0_24px_80px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out will-change-transform ${
+              open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            }`}
+            style={{ touchAction: "pan-y" }}
+          >
+            <div className="flex h-16 items-center justify-between px-4">
+              <span className="font-display text-2xl font-bold">Ranny&apos;s</span>
+              <button onClick={closeMenu} aria-label="Close menu">
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <nav className="flex flex-1 flex-col gap-2 overflow-y-auto px-6 pb-8 pt-8 overscroll-contain">
+              {navLinks.map((l, i) => (
+                <Link
+                  key={`${l.label}-${i}`}
+                  to={l.to}
+                  onClick={closeMenu}
+                  className="font-display border-b border-border py-4 text-2xl text-foreground hover:text-primary"
+                >
+                  {l.label}
+                </Link>
+              ))}
               <Link
-                key={`${l.label}-${i}`}
-                to={l.to}
-                onClick={() => setOpen(false)}
+                to="/cart"
+                onClick={closeMenu}
                 className="font-display border-b border-border py-4 text-2xl text-foreground hover:text-primary"
               >
-                {l.label}
+                Bag ({count})
               </Link>
-            ))}
-            <Link
-              to="/cart"
-              onClick={() => setOpen(false)}
-              className="font-display border-b border-border py-4 text-2xl text-foreground hover:text-primary"
-            >
-              Bag ({count})
-            </Link>
-          </nav>
+            </nav>
+          </div>
         </div>
       )}
     </header>
