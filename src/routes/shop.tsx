@@ -18,9 +18,15 @@ export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
       { title: "Shop — Ranny's Clothing" },
-      { name: "description", content: "Shop dresses, shoes, jewelry & chains. Fresh drops weekly from Ranny's Clothing." },
+      {
+        name: "description",
+        content: "Shop dresses, shoes, jewelry & chains. Fresh drops weekly from Ranny's Clothing.",
+      },
       { property: "og:title", content: "Shop the Drop — Ranny's Clothing" },
-      { property: "og:description", content: "Curated luxury, freshly imported. Shop the latest pieces." },
+      {
+        property: "og:description",
+        content: "Curated luxury, freshly imported. Shop the latest pieces.",
+      },
     ],
   }),
   component: ShopPage,
@@ -30,7 +36,10 @@ const PAGE_SIZE = 8;
 const MAX_PRICE = Math.max(...products.map((p) => p.price));
 
 function ShopPage() {
-  const [filters, setFilters] = useState<ShopFilterState>({ ...DEFAULT_FILTERS, priceMax: MAX_PRICE });
+  const [filters, setFilters] = useState<ShopFilterState>({
+    ...DEFAULT_FILTERS,
+    priceMax: MAX_PRICE,
+  });
   const [page, setPage] = useState(1);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loading] = useState(false);
@@ -68,7 +77,8 @@ function ShopPage() {
             <p className="font-accent text-[10px] text-primary">The Edit</p>
             <h1 className="font-display mt-2 text-4xl md:text-6xl">Shop the Drop</h1>
             <p className="mt-3 max-w-xl text-muted-foreground">
-              Hand-picked pieces, freshly imported. Filter by category, price and what's trending right now.
+              Hand-picked pieces, freshly imported. Filter by category, price and what's trending
+              right now.
             </p>
           </div>
         </section>
@@ -117,14 +127,17 @@ function ShopPage() {
             <section>
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-sm text-muted-foreground">
-                  Showing <span className="text-foreground">{visible.length}</span> of {filtered.length} pieces
+                  Showing <span className="text-foreground">{visible.length}</span> of{" "}
+                  {filtered.length} pieces
                 </p>
               </div>
 
               {loading ? (
                 <SkeletonGrid />
               ) : visible.length === 0 ? (
-                <EmptyState onReset={() => updateFilters({ ...DEFAULT_FILTERS, priceMax: MAX_PRICE })} />
+                <EmptyState
+                  onReset={() => updateFilters({ ...DEFAULT_FILTERS, priceMax: MAX_PRICE })}
+                />
               ) : (
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
                   {visible.map((p, i) => (

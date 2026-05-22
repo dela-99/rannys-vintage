@@ -15,13 +15,17 @@ export function BrandStory() {
           Handpicked. <em className="text-gradient not-italic">Imported.</em> Loved.
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-muted-foreground md:text-lg">
-          Every few weeks, Ranny flies to source the freshest, most current pieces — so you&apos;re never
-          wearing yesterday&apos;s trend. From Guangzhou&apos;s ateliers to your wardrobe in Accra.
+          Every few weeks, Ranny flies to source the freshest, most current pieces — so you&apos;re
+          never wearing yesterday&apos;s trend. From Guangzhou&apos;s ateliers to your wardrobe in
+          Accra.
         </p>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {stats.map((s) => (
-            <div key={s.label} className="rounded-2xl bg-background p-8 shadow-card transition hover:shadow-hover">
+            <div
+              key={s.label}
+              className="rounded-2xl bg-background p-8 shadow-card transition hover:shadow-hover"
+            >
               <div className="mx-auto grid h-14 w-14 place-items-center rounded-full gradient-primary text-primary-foreground">
                 <s.icon className="h-6 w-6" />
               </div>

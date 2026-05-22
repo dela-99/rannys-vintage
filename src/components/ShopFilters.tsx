@@ -43,7 +43,10 @@ export function ShopFilters({ filters, onChange, maxPrice }: Props) {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h3 className="font-display text-lg">Filters</h3>
-        <button onClick={reset} className="font-accent flex items-center gap-1 text-[10px] text-muted-foreground hover:text-primary">
+        <button
+          onClick={reset}
+          className="font-accent flex items-center gap-1 text-[10px] text-muted-foreground hover:text-primary"
+        >
           <X className="h-3 w-3" /> Clear
         </button>
       </div>
@@ -58,7 +61,11 @@ export function ShopFilters({ filters, onChange, maxPrice }: Props) {
                 checked={filters.categories.includes(c)}
                 onChange={() => toggleCategory(c)}
               />
-              <span className={filters.categories.includes(c) ? "text-foreground" : "text-muted-foreground"}>
+              <span
+                className={
+                  filters.categories.includes(c) ? "text-foreground" : "text-muted-foreground"
+                }
+              >
                 {c}
               </span>
             </label>
@@ -114,7 +121,15 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
+function Toggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <label className="flex cursor-pointer items-center justify-between text-sm">
       <span className={checked ? "text-foreground" : "text-muted-foreground"}>{label}</span>

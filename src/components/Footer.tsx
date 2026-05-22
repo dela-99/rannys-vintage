@@ -10,27 +10,77 @@ export function Footer() {
             Chic, stylishly confident pieces — handpicked from China, dropped weekly in Accra.
           </p>
           <div className="mt-6 flex gap-3">
-            <a href="#" aria-label="Instagram" className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"><Instagram className="h-4 w-4" /></a>
-            <a href="#" aria-label="WhatsApp" className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"><MessageCircle className="h-4 w-4" /></a>
-            <a href="#" aria-label="Facebook" className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"><Facebook className="h-4 w-4" /></a>
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="WhatsApp"
+              className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"
+            >
+              <MessageCircle className="h-4 w-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"
+            >
+              <Facebook className="h-4 w-4" />
+            </a>
           </div>
         </div>
         <div>
           <h4 className="font-accent text-xs text-primary-glow">Shop</h4>
           <ul className="mt-4 space-y-3 text-sm text-background/80">
-            <li><a href="#" className="hover:text-primary-glow">New Arrivals</a></li>
-            <li><a href="#" className="hover:text-primary-glow">Dresses</a></li>
-            <li><a href="#" className="hover:text-primary-glow">Shoes</a></li>
-            <li><a href="#" className="hover:text-primary-glow">Jewelry</a></li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                New Arrivals
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                Dresses
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                Shoes
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                Jewelry
+              </a>
+            </li>
           </ul>
         </div>
         <div>
           <h4 className="font-accent text-xs text-primary-glow">Help</h4>
           <ul className="mt-4 space-y-3 text-sm text-background/80">
-            <li><a href="#" className="hover:text-primary-glow">Contact</a></li>
-            <li><a href="#" className="hover:text-primary-glow">Shipping</a></li>
-            <li><a href="#" className="hover:text-primary-glow">Returns</a></li>
-            <li><a href="#" className="hover:text-primary-glow">Size Guide</a></li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                Shipping
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                Returns
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary-glow">
+                Size Guide
+              </a>
+            </li>
           </ul>
         </div>
       </div>

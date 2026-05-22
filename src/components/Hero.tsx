@@ -18,11 +18,13 @@ export function Hero() {
         <div className="max-w-2xl space-y-6 animate-[fade-up_0.9s_cubic-bezier(0.22,1,0.36,1)_both]">
           <p className="font-accent text-xs text-primary-glow">The November Drop · 2026</p>
           <h1 className="font-display text-5xl leading-[0.95] text-white md:text-7xl lg:text-8xl">
-            Chic.<br />
+            Chic.
+            <br />
             <span className="italic text-gradient">Stylishly</span> Confident.
           </h1>
           <p className="max-w-md text-base text-white/80 md:text-lg">
-            Handpicked pieces flown in fresh from China — for the woman who walks in like she owns the room.
+            Handpicked pieces flown in fresh from China — for the woman who walks in like she owns
+            the room.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <button className="group font-accent inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-xs font-semibold text-foreground transition hover:bg-primary hover:text-primary-foreground">

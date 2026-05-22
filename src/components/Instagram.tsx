@@ -21,7 +21,12 @@ export function Instagram() {
         <div className="grid grid-cols-2 gap-2 md:grid-cols-6 md:gap-3">
           {tiles.map((src, i) => (
             <a key={i} href="#" className="group relative aspect-square overflow-hidden rounded-xl">
-              <img src={src} alt={`Instagram post ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <img
+                src={src}
+                alt={`Instagram post ${i + 1}`}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
               <div className="absolute inset-0 grid place-items-center bg-primary/0 transition group-hover:bg-primary/70">
                 <IG className="h-6 w-6 text-white opacity-0 transition group-hover:opacity-100" />
               </div>

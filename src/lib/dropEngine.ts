@@ -1,9 +1,6 @@
 export type DropStatus = "JUST_DROPPED" | "NEW_ARRIVAL" | "TRENDING" | null;
 
-export function getDropStatus(
-  createdAt: Date | string,
-  trending = false,
-): DropStatus {
+export function getDropStatus(createdAt: Date | string, trending = false): DropStatus {
   const days = (Date.now() - new Date(createdAt).getTime()) / 86400000;
   if (days <= 7) return "JUST_DROPPED";
   if (days <= 21) return "NEW_ARRIVAL";
