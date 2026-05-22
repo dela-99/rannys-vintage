@@ -14,7 +14,10 @@ export function Newsletter() {
           Get notified the moment new pieces land. No spam, just the freshest fits.
         </p>
         <form
-          onSubmit={(e) => { e.preventDefault(); if (email) setDone(true); }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (email) setDone(true);
+          }}
           className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row"
         >
           <input

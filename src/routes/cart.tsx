@@ -73,7 +73,11 @@ function CartPage() {
                       params={{ productId: item.product.id }}
                       className="block h-32 w-24 shrink-0 overflow-hidden rounded-xl bg-muted"
                     >
-                      <img src={item.product.image} alt={item.product.name} className="h-full w-full object-cover" />
+                      <img
+                        src={item.product.image}
+                        alt={item.product.name}
+                        className="h-full w-full object-cover"
+                      />
                     </Link>
                     <div className="flex flex-1 flex-col">
                       <div className="flex items-start justify-between gap-3">

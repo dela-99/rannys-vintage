@@ -8,7 +8,12 @@ export function FeaturedCollection() {
     <section className="px-4 py-20 md:px-8 md:py-28">
       <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 md:gap-10">
         <div className="relative overflow-hidden rounded-3xl shadow-card">
-          <img src={main} alt="The Confidence Edit" loading="lazy" className="h-full w-full object-cover" />
+          <img
+            src={main}
+            alt="The Confidence Edit"
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         </div>
         <div className="flex flex-col justify-between gap-6">
           <div className="space-y-5">
@@ -17,7 +22,8 @@ export function FeaturedCollection() {
               The Confidence <em className="text-gradient not-italic">Edit</em>
             </h2>
             <p className="text-muted-foreground md:text-lg">
-              Soft silhouettes, bold accents, and silky textures curated for the woman who shows up — and stays.
+              Soft silhouettes, bold accents, and silky textures curated for the woman who shows up
+              — and stays.
             </p>
             <button className="font-accent group inline-flex items-center gap-2 rounded-full gradient-primary px-8 py-4 text-xs font-semibold text-primary-foreground shadow-card transition hover:shadow-hover">
               Explore Collection
@@ -25,8 +31,18 @@ export function FeaturedCollection() {
             </button>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={side1} alt="Jewelry detail" loading="lazy" className="aspect-square w-full rounded-2xl object-cover shadow-card" />
-            <img src={side2} alt="Fabric detail" loading="lazy" className="aspect-square w-full rounded-2xl object-cover shadow-card" />
+            <img
+              src={side1}
+              alt="Jewelry detail"
+              loading="lazy"
+              className="aspect-square w-full rounded-2xl object-cover shadow-card"
+            />
+            <img
+              src={side2}
+              alt="Fabric detail"
+              loading="lazy"
+              className="aspect-square w-full rounded-2xl object-cover shadow-card"
+            />
           </div>
         </div>
       </div>

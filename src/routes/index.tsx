@@ -16,9 +16,16 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Ranny's Clothing — Chic & Stylishly Confident Fashion in Ghana" },
-      { name: "description", content: "Handpicked dresses, shoes, jewelry & chains, flown in fresh from China to Accra. Shop the latest drop at Ranny's Clothing." },
+      {
+        name: "description",
+        content:
+          "Handpicked dresses, shoes, jewelry & chains, flown in fresh from China to Accra. Shop the latest drop at Ranny's Clothing.",
+      },
       { property: "og:title", content: "Ranny's Clothing — Just Dropped" },
-      { property: "og:description", content: "Chic, stylishly confident pieces — fresh drops from China, every few weeks." },
+      {
+        property: "og:description",
+        content: "Chic, stylishly confident pieces — fresh drops from China, every few weeks.",
+      },
     ],
   }),
   component: Index,

@@ -1,6 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { Heart, MessageCircle, Minus, Plus, ShoppingBag, Truck, RotateCcw, Shield } from "lucide-react";
+import {
+  Heart,
+  MessageCircle,
+  Minus,
+  Plus,
+  ShoppingBag,
+  Truck,
+  RotateCcw,
+  Shield,
+} from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -31,7 +40,9 @@ export const Route = createFileRoute("/products/$productId")({
     <div className="grid min-h-screen place-items-center bg-background">
       <div className="text-center">
         <h1 className="font-display text-4xl">Product not found</h1>
-        <Link to="/shop" className="mt-4 inline-block text-primary underline">Back to shop</Link>
+        <Link to="/shop" className="mt-4 inline-block text-primary underline">
+          Back to shop
+        </Link>
       </div>
     </div>
   ),
@@ -72,9 +83,13 @@ function ProductPage() {
       <main className="pt-20 md:pt-24">
         <div className="mx-auto max-w-7xl px-4 py-6 md:px-8">
           <nav className="font-accent mb-6 text-[10px] text-muted-foreground">
-            <Link to="/" className="hover:text-primary">Home</Link>
+            <Link to="/" className="hover:text-primary">
+              Home
+            </Link>
             <span className="mx-2">/</span>
-            <Link to="/shop" className="hover:text-primary">Shop</Link>
+            <Link to="/shop" className="hover:text-primary">
+              Shop
+            </Link>
             <span className="mx-2">/</span>
             <span className="text-foreground">{product.name}</span>
           </nav>
@@ -130,7 +145,9 @@ function ProductPage() {
             <div>
               <p className="font-accent text-[10px] text-primary">{product.category}</p>
               <h1 className="font-display mt-2 text-3xl md:text-5xl">{product.name}</h1>
-              <p className="mt-3 text-3xl font-semibold text-primary">{formatPrice(product.price)}</p>
+              <p className="mt-3 text-3xl font-semibold text-primary">
+                {formatPrice(product.price)}
+              </p>
 
               <p className="mt-6 leading-relaxed text-muted-foreground">{product.description}</p>
 
@@ -222,9 +239,21 @@ function ProductPage() {
               </button>
 
               <div className="mt-8 grid gap-4 border-t border-border pt-8 text-sm md:grid-cols-3">
-                <Info icon={<Truck className="h-4 w-4" />} title="Free delivery" body="Accra orders over GH₵ 500" />
-                <Info icon={<RotateCcw className="h-4 w-4" />} title="7-day returns" body="On unworn pieces" />
-                <Info icon={<Shield className="h-4 w-4" />} title="Authenticity" body="Hand-checked in Accra" />
+                <Info
+                  icon={<Truck className="h-4 w-4" />}
+                  title="Free delivery"
+                  body="Accra orders over GH₵ 500"
+                />
+                <Info
+                  icon={<RotateCcw className="h-4 w-4" />}
+                  title="7-day returns"
+                  body="On unworn pieces"
+                />
+                <Info
+                  icon={<Shield className="h-4 w-4" />}
+                  title="Authenticity"
+                  body="Hand-checked in Accra"
+                />
               </div>
             </div>
           </div>
