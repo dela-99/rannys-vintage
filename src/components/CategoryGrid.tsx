@@ -5,19 +5,17 @@ import bag from "@/assets/product-bag.jpg";
 import jewel from "@/assets/collection-side-1.jpg";
 
 const categories = [
-<<<<<<< HEAD
   { name: "Dresses", img: dress, span: "md:col-span-2 md:row-span-2", icon: "👗" },
   { name: "Shoes", img: shoes, span: "" },
   { name: "Jewelry", img: jewel, span: "" },
   { name: "Chains", img: chain, span: "" },
   { name: "Accessories", img: bag, span: "" },
-=======
+
   { name: "Dresses" },
   { name: "Shoes" },
   { name: "Jewelry" },
   { name: "Chains" },
   { name: "Accessories" },
->>>>>>> 11323562ba36c9ac03725872d05c695e76b8c58a
 ];
 
 export function CategoryGrid() {
@@ -44,7 +42,7 @@ export function CategoryGrid() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent transition-opacity group-hover:from-primary/85" />
+              <div className="absolute inset-0 bg-linear-to-t from-foreground/85 via-foreground/20 to-transparent transition-opacity group-hover:from-primary/85" />
               <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-7">
                 <span className="text-2xl">{c.icon}</span>
                 <h3 className="font-display mt-1 text-2xl text-white md:text-3xl">{c.name}</h3>

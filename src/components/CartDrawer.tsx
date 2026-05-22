@@ -48,7 +48,7 @@ export function CartDrawer() {
         bodyLockRef.current = null;
       }
     };
-  }, [drawerOpen, isMounted]);
+  }, [drawerOpen, isMounted, closeDrawer]);
 
   return (
     <>
