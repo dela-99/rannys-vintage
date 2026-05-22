@@ -5,11 +5,19 @@ import bag from "@/assets/product-bag.jpg";
 import jewel from "@/assets/collection-side-1.jpg";
 
 const categories = [
+<<<<<<< HEAD
   { name: "Dresses", img: dress, span: "md:col-span-2 md:row-span-2", icon: "👗" },
   { name: "Shoes", img: shoes, span: "" },
   { name: "Jewelry", img: jewel, span: "" },
   { name: "Chains", img: chain, span: "" },
   { name: "Accessories", img: bag, span: "" },
+=======
+  { name: "Dresses" },
+  { name: "Shoes" },
+  { name: "Jewelry" },
+  { name: "Chains" },
+  { name: "Accessories" },
+>>>>>>> 11323562ba36c9ac03725872d05c695e76b8c58a
 ];
 
 export function CategoryGrid() {
