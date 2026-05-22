@@ -79,7 +79,11 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-20 md:px-8">
-        <button className="md:hidden" onClick={() => setOpen((prev) => !prev)} aria-label="Open menu">
+        <button
+          className="md:hidden"
+          onClick={() => setOpen((prev) => !prev)}
+          aria-label="Open menu"
+        >
           <Menu className="h-6 w-6" />
         </button>
 
