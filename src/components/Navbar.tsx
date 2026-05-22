@@ -132,7 +132,7 @@ export function Navbar() {
 
       {menuMounted && (
         <div
-          className={`fixed inset-0 z-100 md:hidden ${open ? "pointer-events-auto" : "pointer-events-auto"}`}
+          className={`fixed inset-0 z-100 md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
           aria-hidden={!open}
           onTransitionEnd={(event) => {
             if (event.target !== event.currentTarget) {
