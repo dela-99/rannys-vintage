@@ -116,7 +116,11 @@ export function CartDrawer() {
                         onClick={closeDrawer}
                         className="block h-24 w-20 shrink-0 overflow-hidden rounded-lg bg-muted"
                       >
-                        <img src={item.product.image} alt={item.product.name} className="h-full w-full object-cover" />
+                        <img
+                          src={item.product.image}
+                          alt={item.product.name}
+                          className="h-full w-full object-cover"
+                        />
                       </Link>
                       <div className="flex flex-1 flex-col">
                         <div className="flex justify-between gap-2">
@@ -168,7 +172,9 @@ export function CartDrawer() {
                   <span className="font-accent text-xs text-muted-foreground">Subtotal</span>
                   <span className="font-display text-2xl">{formatPrice(subtotal)}</span>
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">Shipping and taxes calculated at checkout.</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Shipping and taxes calculated at checkout.
+                </p>
                 <div className="mt-4 flex flex-col gap-2">
                   <Link
                     to="/cart"
