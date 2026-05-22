@@ -79,7 +79,7 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-20 md:px-8">
-        <button className="md:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
+        <button className="md:hidden" onClick={() => setOpen((prev) => !prev)} aria-label="Open menu">
           <Menu className="h-6 w-6" />
         </button>
 
@@ -134,15 +134,6 @@ export function Navbar() {
         <div
           className={`fixed inset-0 z-100 md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
           aria-hidden={!open}
-          onTransitionEnd={(event) => {
-            if (event.target !== event.currentTarget) {
-              return;
-            }
-
-            if (!open) {
-              setMenuMounted(false);
-            }
-          }}
         >
           <div
             className={`absolute inset-0 bg-background/70 backdrop-blur-md transition-opacity duration-300 ease-out ${
@@ -153,9 +144,10 @@ export function Navbar() {
 
           <div
             className={`relative flex h-full w-full flex-col bg-background/95 shadow-[0_24px_80px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out will-change-transform ${
-              open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              open ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
             }`}
             style={{ touchAction: "pan-y" }}
+            onTransitionEnd={() => !open && setMenuMounted(false)}
           >
             <div className="flex h-16 items-center justify-between px-4">
               <span className="font-display text-2xl font-bold">Ranny&apos;s</span>

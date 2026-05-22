@@ -1,22 +1,22 @@
 import { Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/dropEngine";
 
 export function CartDrawer() {
   const { items, drawerOpen, closeDrawer, remove, setQuantity, subtotal, count } = useCart();
-  const drawerMountedRef = useRef(false);
+  const [isMounted, setIsMounted] = useState(false);
   const bodyLockRef = useRef<{ overflow: string; paddingRight: string } | null>(null);
 
   useEffect(() => {
     if (drawerOpen) {
-      drawerMountedRef.current = true;
+      setIsMounted(true);
     }
   }, [drawerOpen]);
 
   useEffect(() => {
-    if (!drawerMountedRef.current || !drawerOpen) {
+    if (!isMounted || !drawerOpen) {
       return;
     }
 
@@ -48,11 +48,11 @@ export function CartDrawer() {
         bodyLockRef.current = null;
       }
     };
-  }, [closeDrawer, drawerOpen]);
+  }, [drawerOpen, isMounted]);
 
   return (
     <>
-      {drawerMountedRef.current && (
+      {isMounted && (
         <div className="fixed inset-0 z-90 md:z-90">
           <div
             onClick={closeDrawer}
@@ -70,7 +70,7 @@ export function CartDrawer() {
               }
 
               if (!drawerOpen) {
-                drawerMountedRef.current = false;
+                setIsMounted(false);
               }
             }}
             className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-background shadow-hover transition-transform duration-300 ease-out will-change-transform ${

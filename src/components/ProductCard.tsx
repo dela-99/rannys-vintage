@@ -77,11 +77,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="mt-4 space-y-1">
         <p className="font-accent text-[10px] text-muted-foreground">{product.category}</p>
         <h3 className="text-base font-medium text-foreground">
-          <Link
-            to="/products/$productId"
-            params={{ productId: product.id }}
-            className="hover:text-primary"
-          >
+          <Link to="/products/$productId" params={{ productId: product.id }} className="hover:text-primary">
             {product.name}
           </Link>
         </h3>
