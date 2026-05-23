@@ -14,8 +14,8 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [menuMounted, setMenuMounted] = useState(false);
   const bodyLockRef = useRef<{ overflow: string; paddingRight: string } | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const { count, openDrawer } = useCart();
 
   useEffect(() => {
@@ -26,16 +26,6 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (open) {
-      setMenuMounted(true);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    if (!menuMounted) {
-      return;
-    }
-
     if (!open) {
       return;
     }
@@ -68,7 +58,7 @@ export function Navbar() {
         bodyLockRef.current = null;
       }
     };
-  }, [open, menuMounted]);
+  }, [open]);
 
   const closeMenu = () => setOpen(false);
 
@@ -80,11 +70,13 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-20 md:px-8">
         <button
-          className="md:hidden"
+          className="md:hidden transition-transform duration-200 active:scale-90"
           onClick={() => setOpen((prev) => !prev)}
           aria-label="Open menu"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
-          <Menu className="h-6 w-6" />
+          <Menu className="h-6 w-6 transition-transform duration-300" />
         </button>
 
         <Link to="/" className="flex items-center">
@@ -111,20 +103,20 @@ export function Navbar() {
           <Link
             to="/shop"
             aria-label="Search"
-            className="hidden text-foreground/80 hover:text-primary md:block"
+            className="hidden text-foreground/80 hover:text-primary md:block transition-colors"
           >
             <Search className="h-5 w-5" />
           </Link>
           <button
             aria-label="Wishlist"
-            className="hidden text-foreground/80 hover:text-primary md:block"
+            className="hidden text-foreground/80 hover:text-primary md:block transition-colors"
           >
             <Heart className="h-5 w-5" />
           </button>
           <button
             aria-label="Cart"
             onClick={openDrawer}
-            className="relative text-foreground/80 hover:text-primary"
+            className="relative text-foreground/80 hover:text-primary transition-colors"
           >
             <ShoppingBag className="h-5 w-5" />
             <span className="absolute -right-2 -top-2 grid h-4 w-4 place-items-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground">
@@ -134,38 +126,22 @@ export function Navbar() {
         </div>
       </div>
 
-      {menuMounted && (
+      {open && (
         <div
-          className={`fixed inset-0 z-100 md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
-          aria-hidden={!open}
+          ref={menuRef}
+          id="mobile-menu"
+          className="fixed inset-0 top-16 z-40 md:hidden bg-background/95 shadow-[0_24px_80px_rgba(0,0,0,0.18)]"
+          style={{ touchAction: "pan-y" }}
         >
-          <div
-            className={`absolute inset-0 bg-background/70 backdrop-blur-md transition-opacity duration-300 ease-out ${
-              open ? "opacity-100" : "opacity-0"
-            }`}
-            onClick={closeMenu}
-          />
-
-          <div
-            className={`relative flex h-full w-full flex-col bg-background/95 shadow-[0_24px_80px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out will-change-transform ${
-              open ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
-            }`}
-            style={{ touchAction: "pan-y" }}
-            onTransitionEnd={() => !open && setMenuMounted(false)}
-          >
-            <div className="flex h-16 items-center justify-between px-4">
-              <span className="font-display text-2xl font-bold">Ranny&apos;s</span>
-              <button onClick={closeMenu} aria-label="Close menu">
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-            <nav className="flex flex-1 flex-col gap-2 overflow-y-auto px-6 pb-8 pt-8 overscroll-contain">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-md" />
+          <div className="relative flex h-full w-full flex-col">
+            <nav className="flex flex-1 flex-col gap-0 overflow-y-auto px-6 py-8 overscroll-contain">
               {navLinks.map((l, i) => (
                 <Link
                   key={`${l.label}-${i}`}
                   to={l.to}
                   onClick={closeMenu}
-                  className="font-display border-b border-border py-4 text-2xl text-foreground hover:text-primary"
+                  className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
                 >
                   {l.label}
                 </Link>
@@ -173,7 +149,7 @@ export function Navbar() {
               <Link
                 to="/cart"
                 onClick={closeMenu}
-                className="font-display border-b border-border py-4 text-2xl text-foreground hover:text-primary"
+                className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
               >
                 Bag ({count})
               </Link>

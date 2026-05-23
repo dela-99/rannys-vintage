@@ -12,4 +12,16 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      middlewareMode: false,
+      host: "localhost",
+      port: 8080,
+      strictPort: false,
+      hmr: {
+        host: "localhost",
+        port: 8080,
+      },
+    },
+  },
 });
