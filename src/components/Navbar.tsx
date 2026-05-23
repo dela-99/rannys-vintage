@@ -83,7 +83,7 @@ export function Navbar() {
           <span className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
             Ranny&apos;s
           </span>
-          <span className="font-accent ml-1 text-[10px] text-primary">Clothing</span>
+          <span className="font-accent ml-1 text-[10px] text-primary">Vintage Clothing</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -130,7 +130,7 @@ export function Navbar() {
         <div
           ref={menuRef}
           id="mobile-menu"
-          className="fixed inset-0 top-16 z-40 md:hidden bg-background/95 shadow-[0_24px_80px_rgba(0,0,0,0.18)]"
+          className="fixed inset-0 top-16 z-50 md:hidden bg-background/95 shadow-[0_24px_80px_rgba(0,0,0,0.18)]"
           style={{ touchAction: "pan-y" }}
         >
           <div className="absolute inset-0 bg-background/70 backdrop-blur-md" />
@@ -153,6 +153,20 @@ export function Navbar() {
               >
                 Bag ({count})
               </Link>
+              <a
+                href="#contact"
+                onClick={closeMenu}
+                className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
+              >
+                Contact
+              </a>
+              <a
+                href="#about"
+                onClick={closeMenu}
+                className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
+              >
+                About
+              </a>
             </nav>
           </div>
         </div>

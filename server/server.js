@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    name: "Ranny's Clothing API",
+    name: "Ranny's Vintage Clothing API",
     tagline: "Chic & Stylishly Confident",
     health: "/api/health",
   });
@@ -80,7 +80,7 @@ app.use(errorHandler);
 connectDB()
   .then(() => {
     app.listen(port, () => {
-      console.log(`Ranny's Clothing API running on port ${port}`);
+      console.log(`Ranny's Vintage Clothing API running on port ${port}`);
     });
   })
   .catch((error) => {

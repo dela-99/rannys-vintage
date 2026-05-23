@@ -9,7 +9,7 @@ import { formatPrice } from "@/lib/dropEngine";
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Your Bag — Ranny's Clothing" },
+      { title: "Your Bag — Ranny's Vintage Clothing" },
       { name: "description", content: "Review your selected pieces and check out via WhatsApp." },
     ],
   }),

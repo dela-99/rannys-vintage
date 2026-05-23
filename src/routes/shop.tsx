@@ -17,12 +17,12 @@ import { isNewArrival } from "@/lib/dropEngine";
 export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
-      { title: "Shop — Ranny's Clothing" },
+      { title: "Shop — Ranny's Vintage Clothing" },
       {
         name: "description",
-        content: "Shop dresses, shoes, jewelry & chains. Fresh drops weekly from Ranny's Clothing.",
+        content: "Shop dresses, shoes, jewelry & chains. Fresh drops weekly from Ranny's Vintage Clothing.",
       },
-      { property: "og:title", content: "Shop the Drop — Ranny's Clothing" },
+      { property: "og:title", content: "Shop the Drop — Ranny's Vintage Clothing" },
       {
         property: "og:description",
         content: "Curated luxury, freshly imported. Shop the latest pieces.",

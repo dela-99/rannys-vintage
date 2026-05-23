@@ -8,7 +8,7 @@ export function formatWhatsAppOrderMessage(order) {
     .join("\n");
 
   return [
-    "New Ranny's Clothing Order",
+    "New Ranny's Vintage Clothing Order",
     "",
     `Customer: ${order.customer.name}`,
     `Phone: ${order.customer.phone}`,

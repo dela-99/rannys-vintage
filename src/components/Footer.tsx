@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="bg-foreground px-4 pb-10 pt-20 text-background md:px-8">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-4">
         <div className="md:col-span-2">
-          <span className="font-display text-3xl font-bold">Ranny&apos;s Clothing</span>
+          <span className="font-display text-3xl font-bold">Ranny&apos;s Vintage Clothing</span>
           <p className="mt-4 max-w-sm text-sm text-background/70">
             Chic, stylishly confident pieces — handpicked from China, dropped weekly in Accra.
           </p>
@@ -85,7 +85,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mx-auto mt-16 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-background/10 pt-8 text-xs text-background/60 md:flex-row">
-        <p>© 2026 Ranny&apos;s Clothing. Made with love in Accra.</p>
+        <p>© 2026 Ranny&apos;s Vintage Clothing. Made with love in Accra.</p>
         <p className="font-accent">Privacy · Terms</p>
       </div>
     </footer>
