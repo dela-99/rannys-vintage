@@ -127,15 +127,19 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div
-          ref={menuRef}
-          id="mobile-menu"
-          className="fixed inset-0 top-16 z-50 md:hidden bg-background/95 shadow-[0_24px_80px_rgba(0,0,0,0.18)]"
-          style={{ touchAction: "pan-y" }}
-        >
-          <div className="absolute inset-0 bg-background/70 backdrop-blur-md" />
-          <div className="relative flex h-full w-full flex-col">
-            <nav className="flex flex-1 flex-col gap-0 overflow-y-auto px-6 py-8 overscroll-contain">
+        <>
+          <div
+            className="fixed inset-0 top-16 z-40 md:hidden bg-foreground/60 backdrop-blur-sm transition-opacity duration-300"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+          <nav
+            ref={menuRef}
+            id="mobile-menu"
+            className="fixed left-0 right-0 top-16 bottom-0 z-50 md:hidden bg-background overflow-y-auto overscroll-contain will-change-transform"
+            style={{ touchAction: "pan-y" }}
+          >
+            <div className="flex flex-col gap-0 px-6 py-8">
               {navLinks.map((l, i) => (
                 <Link
                   key={`${l.label}-${i}`}
@@ -167,9 +171,9 @@ export function Navbar() {
               >
                 About
               </a>
-            </nav>
-          </div>
-        </div>
+            </div>
+          </nav>
+        </>
       )}
     </header>
   );
