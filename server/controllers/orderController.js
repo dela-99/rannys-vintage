@@ -1,5 +1,5 @@
-import { Order } from "../models\Order.js";
-import { Product } from "../models\Product.js";
+import { Order } from "../models/Order.js";
+import { Product } from "../models/Product.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
 import { formatWhatsAppOrderMessage, toWhatsAppUrl } from "../utils/whatsappMessage.js";
 
