@@ -10,7 +10,7 @@ const items = [
 export function DropBar() {
   return (
     <div className="bg-foreground py-3 text-background overflow-hidden">
-      <div className="flex animate-marquee whitespace-nowrap" style={{ animationDuration: '8s' }}>
+      <div className="flex animate-marquee whitespace-nowrap" style={{ animationDuration: "8s" }}>
         {[...items, ...items, ...items].map((t, i) => (
           <span key={i} className="font-accent mx-8 inline-flex items-center gap-3 text-[11px]">
             <Flame className="h-3 w-3 text-primary-glow" />
