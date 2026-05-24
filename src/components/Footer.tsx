@@ -7,7 +7,7 @@ export function Footer() {
         <div className="md:col-span-2">
           <span className="font-display text-3xl font-bold">Ranny&apos;s Vintage Clothing</span>
           <p className="mt-4 max-w-sm text-sm text-background/70">
-            Chic, stylishly confident pieces — handpicked from China, dropped weekly in Accra.
+            Chic, stylishly confident pieces — handpicked New Styles, dropped weekly in Accra.
           </p>
           <div className="mt-6 flex gap-3">
             <a

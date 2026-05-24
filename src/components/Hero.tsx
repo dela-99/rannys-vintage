@@ -23,7 +23,7 @@ export function Hero() {
             <span className="italic text-gradient">Stylishly</span> Confident.
           </h1>
           <p className="max-w-md text-base text-white/80 md:text-lg">
-            Handpicked pieces flown in fresh from China — for the woman who walks in like she owns
+            Handpicked New Styles arriving weekly — for the woman who walks in like she owns
             the room.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-4">
