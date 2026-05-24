@@ -12,6 +12,9 @@ import productRoutes from "./routes/productRoutes.js";
 import subscriberRoutes from "./routes/subscriberRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 
+// Import the TanStack SSR handler
+import tanstackHandler from "../dist/server/index.js";
+
 dotenv.config({ path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".env") });
 dotenv.config();
 
@@ -50,23 +53,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    name: "Ranny's Vintage Clothing API",
-    tagline: "Chic & Stylishly Confident",
-    health: "/api/health",
-  });
-});
-
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    status: "ok",
-    timestamp: new Date().toISOString(),
-  });
-});
-
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
@@ -74,22 +61,35 @@ app.use("/api/banners", bannerRoutes);
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/uploads", uploadRoutes);
 
-// Serve static client assets
+// Serve client assets statically
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const distPath = path.join(__dirname, "../dist/client");
-app.use(express.static(distPath));
+const distClientPath = path.join(__dirname, "../dist/client");
+app.use(express.static(distClientPath));
 
-// SPA fallback: serve index.html for all non-API routes
-// This handles client-side routing
-app.use((req, res) => {
-  // Check if file exists first
-  const indexPath = path.join(distPath, "index.html");
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      res.status(404).json({ success: false, message: "Not found" });
-    }
-  });
+// All other routes: use TanStack SSR handler
+app.use("*", async (req, res) => {
+  try {
+    const ssrHandler = tanstackHandler.default;
+    const response = await ssrHandler.fetch(
+      new Request(`http://${req.get("host")}${req.originalUrl}`, {
+        method: req.method,
+        headers: req.headers,
+        body: req.method !== "GET" && req.method !== "HEAD" ? req.body : undefined,
+      })
+    );
+
+    // Set response headers
+    response.headers.forEach((value, key) => {
+      res.setHeader(key, value);
+    });
+
+    res.status(response.status);
+    res.send(await response.text());
+  } catch (error) {
+    console.error("SSR Error:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
 });
 
 app.use(notFound);

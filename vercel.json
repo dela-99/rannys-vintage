@@ -1,0 +1,10 @@
+{
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist",
+  "framework": "other",
+  "serverless": false,
+  "nodejs": "20.x",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
