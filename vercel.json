@@ -1,9 +1,24 @@
 {
-  "buildCommand": "pnpm run build",
-  "outputDirectory": "dist",
-  "framework": "other",
-  "serverless": false,
-  "nodejs": "20.x",
+  "version": 2,
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
+  "functions": {
+    "api/[...all].js": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/[...all]"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
   "env": {
     "NODE_ENV": "production"
   }

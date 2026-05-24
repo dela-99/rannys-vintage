@@ -13,6 +13,12 @@ npm run server:dev
 
 Copy `server/.env.example` to `server/.env` and set MongoDB Atlas, Cloudinary, JWT, CORS, and WhatsApp values.
 
+## Vercel deployment notes
+
+- The backend is exposed as a Vercel Serverless Function from `api/[...all].js`.
+- Set the same environment variables from `server/.env.example` in Vercel project settings.
+- Keep frontend requests pointed to `/api/...` so Vercel routes them to the backend function.
+
 ## Core Routes
 
 Public storefront:
