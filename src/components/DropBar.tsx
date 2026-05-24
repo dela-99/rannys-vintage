@@ -1,7 +1,7 @@
 import { Flame } from "lucide-react";
 
 const items = [
-  "Ranny just got back from China",
+  "Ranny just brought in 100+ new styles",
   "Fresh pieces just landed",
   "Free delivery in Accra over GH₵ 500",
   "Order via WhatsApp 24/7",

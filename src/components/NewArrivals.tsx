@@ -10,7 +10,7 @@ export function NewArrivals() {
           <div className="max-w-xl">
             <p className="font-accent text-xs text-primary">Just Landed</p>
             <h2 className="font-display mt-3 text-4xl text-foreground md:text-6xl">
-              Fresh from <em className="text-gradient not-italic">China</em>
+              New <em className="text-gradient not-italic">Styles</em>
             </h2>
             <p className="mt-4 text-muted-foreground">
               The newest pieces in the studio — handpicked, flown in, and dropped before they sell
