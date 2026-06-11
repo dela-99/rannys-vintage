@@ -40,7 +40,7 @@ export function Footer() {
                 rel="noreferrer"
                 className="hover:text-white"
               >
-                Atomic Down Roundabout, Dome, Accra
+                Atomic Down Roundabout, Dome
               </a>
             </li>
             <li className="flex items-start gap-3">
@@ -52,13 +52,30 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Phone className="h-5 w-5 shrink-0 text-primary" />
-              <span>0248333294 / 0204316701</span>
+              <div className="flex flex-col">
+                <a href="tel:0248333294" className="hover:text-white">
+                  0248333294
+                </a>
+                <a href="tel:0204316701" className="hover:text-white">
+                  0204316701
+                </a>
+              </div>
             </li>
           </ul>
         </div>
         <div>
           <h4 className="font-accent text-xs text-primary-glow">Shop</h4>
           <ul className="mt-4 space-y-3 text-sm text-background/80">
+            <li>
+              <a
+                href="https://maps.app.goo.gl/B8xMdbdUQZp5dML68"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-primary-glow"
+              >
+                Google Maps
+              </a>
+            </li>
             <li>
               <a href="#" className="hover:text-primary-glow">
                 New Arrivals

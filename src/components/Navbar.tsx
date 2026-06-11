@@ -1,14 +1,17 @@
 import { Link } from "@tanstack/react-router";
-import { Search, ShoppingBag, Heart, Menu, X } from "lucide-react";
+import { Search, ShoppingBag, Heart, Menu, X, Instagram, Send, User, LogIn } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 const navLinks = [
+  { label: "Home", to: "/" as const },
   { label: "Shop", to: "/shop" as const },
   { label: "Dresses", to: "/shop" as const },
   { label: "Shoes", to: "/shop" as const },
   { label: "Jewelry", to: "/shop" as const },
   { label: "Chains", to: "/shop" as const },
+  { label: "About", to: "/#about" as const },
+  { label: "Contact", to: "/contact" as const },
 ];
 
 export function Navbar() {
@@ -92,14 +95,33 @@ export function Navbar() {
               key={`${l.label}-${i}`}
               to={l.to}
               activeProps={{ className: "text-primary" }}
-              className="font-accent text-xs font-medium text-foreground/80 transition hover:text-primary"
+              className="font-accent text-[11px] font-medium text-foreground/80 transition hover:text-primary uppercase tracking-wider"
             >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3 md:gap-5">
+        <div className="flex items-center gap-2 md:gap-4">
+          <div className="hidden items-center gap-4 border-r border-border pr-4 md:flex">
+            <a
+              href="https://www.instagram.com/shop_rannys"
+              target="_blank"
+              rel="noreferrer"
+              className="text-foreground/60 hover:text-primary transition-colors"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a
+              href="https://www.tiktok.com/@shop_rannys_new"
+              target="_blank"
+              rel="noreferrer"
+              className="text-foreground/60 hover:text-primary transition-colors"
+            >
+              <Send className="h-4 w-4" />
+            </a>
+          </div>
+
           <Link
             to="/shop"
             aria-label="Search"
@@ -123,6 +145,13 @@ export function Navbar() {
               {count}
             </span>
           </button>
+          <Link
+            to="/login"
+            className="hidden items-center gap-2 rounded-full bg-foreground px-4 py-2 text-[10px] font-semibold text-background transition hover:bg-primary md:flex"
+          >
+            <LogIn className="h-3.5 w-3.5" />
+            Login
+          </Link>
         </div>
       </div>
 
@@ -139,7 +168,7 @@ export function Navbar() {
             className="fixed left-0 right-0 top-16 bottom-0 z-50 md:hidden bg-background overflow-y-auto overscroll-contain will-change-transform"
             style={{ touchAction: "pan-y" }}
           >
-            <div className="flex flex-col gap-0 px-6 py-8">
+            <div className="flex flex-col gap-0 px-6 py-6">
               {navLinks.map((l, i) => (
                 <Link
                   key={`${l.label}-${i}`}
@@ -157,20 +186,32 @@ export function Navbar() {
               >
                 Bag ({count})
               </Link>
-              <a
-                href="#contact"
+              <Link
+                to="/login"
                 onClick={closeMenu}
                 className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
               >
-                Contact
-              </a>
-              <a
-                href="#about"
-                onClick={closeMenu}
-                className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
-              >
-                About
-              </a>
+                Login / Account
+              </Link>
+
+              <div className="mt-8 flex gap-4">
+                <a
+                  href="https://www.instagram.com/shop_rannys"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 font-accent text-xs text-muted-foreground"
+                >
+                  <Instagram className="h-5 w-5" /> Instagram
+                </a>
+                <a
+                  href="https://www.tiktok.com/@shop_rannys_new"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 font-accent text-xs text-muted-foreground"
+                >
+                  <Send className="h-5 w-5" /> TikTok
+                </a>
+              </div>
             </div>
           </nav>
         </>

@@ -1,85 +1,107 @@
-import { motion } from "framer-motion";
-import { Phone, MessageCircle, MapPin, Send } from "lucide-react";
+﻿import { Phone, MessageCircle, Instagram, Send, MapPin, Clock } from "lucide-react";
 
-export default function ContactPage() {
+export function ContactPage() {
   return (
-    <div className="min-h-screen bg-background pt-24 pb-12 px-4">
-      <div className="max-w-7xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Get in Touch</h1>
-          <p className="text-foreground/60">We&apos;re here to help you stay stylishly confident.</p>
-        </motion.div>
+    <div className="pt-28 pb-20 px-4 md:px-8 bg-primary-soft min-h-screen">
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center mb-16">
+          <p className="font-accent text-xs text-primary uppercase tracking-widest">Get In Touch</p>
+          <h1 className="font-display text-5xl md:text-7xl mt-4">
+            Ranny's <em className="text-gradient not-italic">Vintage</em>
+          </h1>
+          <p className="mt-4 text-muted-foreground italic">Chic & Stylishly Confident</p>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="space-y-8">
-            <ContactMethod 
-              icon={<Phone className="text-primary" />}
-              title="Call Us"
-              content="0248333294 / 0204316701"
-              link="tel:0248333294"
-            />
-            <ContactMethod 
-              icon={<MessageCircle className="text-success" />}
-              title="WhatsApp"
-              content="Chat with our stylists"
-              link="https://wa.me/233248333294"
-            />
-            <ContactMethod 
-              icon={<MapPin className="text-primary" />}
-              title="Visit Our Boutique"
-              content="Atomic Down Roundabout, Dome"
-              link="https://maps.app.goo.gl/B8xMdbdUQZp5dML68"
-            />
-            
-            <div className="h-64 rounded-2xl overflow-hidden border border-primary/20 grayscale hover:grayscale-0 transition-all duration-500">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.435728461879!2d-0.2333!3d5.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMzknMDAuMCJOIDDCsDE0JzAwLjAiVw!5e0!3m2!1sen!2sgh!4v1700000000000" 
-                width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
-              ></iframe>
+            <div className="glass p-8 rounded-3xl border border-white/20">
+              <h2 className="font-display text-2xl mb-6">Connect Directly</h2>
+              <div className="grid gap-4">
+                <ContactButton
+                  icon={Phone}
+                  label="Call 0248333294"
+                  href="tel:0248333294"
+                  className="bg-foreground text-background"
+                />
+                <ContactButton
+                  icon={MessageCircle}
+                  label="WhatsApp Us"
+                  href="https://wa.me/233248333294"
+                  className="bg-success text-white"
+                />
+                <ContactButton
+                  icon={Instagram}
+                  label="DM on Instagram"
+                  href="https://www.instagram.com/shop_rannys"
+                  className="bg-[#E4405F] text-white"
+                />
+                <ContactButton
+                  icon={Send}
+                  label="Follow TikTok"
+                  href="https://www.tiktok.com/@shop_rannys_new"
+                  className="bg-black text-white"
+                />
+              </div>
+            </div>
+
+            <div className="glass p-8 rounded-3xl border border-white/20">
+              <h2 className="font-display text-2xl mb-4">Visit Our Studio</h2>
+              <div className="space-y-4 text-sm">
+                <div className="flex gap-4">
+                  <MapPin className="h-5 w-5 text-primary shrink-0" />
+                  <p>Atomic Down Roundabout, Dome, Accra</p>
+                </div>
+                <div className="flex gap-4">
+                  <Clock className="h-5 w-5 text-primary shrink-0" />
+                  <div>
+                    <p>Mon - Sat: 9am - 8pm</p>
+                    <p>Sun: 1pm - 7pm</p>
+                  </div>
+                </div>
+                <ContactButton
+                  icon={MapPin}
+                  label="Open in Google Maps"
+                  href="https://maps.app.goo.gl/B8xMdbdUQZp5dML68"
+                  className="bg-primary text-white mt-4"
+                />
+              </div>
             </div>
           </div>
 
-          <form className="bg-foreground/5 p-8 rounded-3xl border border-primary/10 space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <Input label="Name" type="text" placeholder="Your name" />
-              <Input label="Phone" type="text" placeholder="Your phone" />
-            </div>
-            <Input label="Email" type="email" placeholder="Email address" />
-            <div className="space-y-2">
-              <label className="text-xs font-accent uppercase tracking-widest text-primary">Message</label>
-              <textarea className="w-full bg-background border border-primary/10 rounded-xl p-4 min-h-[150px] focus:border-primary outline-none transition-colors" placeholder="How can we help?"></textarea>
-            </div>
-            <button className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95">
-              <Send size={18} /> Send Message
-            </button>
-          </form>
+          <div className="h-100 md:h-full min-h-125 rounded-3xl overflow-hidden shadow-hover border-4 border-white">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.435728527453!2d-0.2289!3d5.6567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMzknMjQuMSJOIDDCsDEzJzQ0LjAiVw!5e0!3m2!1sen!2sgh!4v1715000000000!5m2!1sen!2sgh"
+              className="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
+              style={{ border: 0 }}
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function ContactMethod({ icon, title, content, link }: any) {
+function ContactButton({
+  icon: Icon,
+  label,
+  href,
+  className,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  href: string;
+  className: string;
+}) {
   return (
-    <a href={link} target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 rounded-2xl hover:bg-primary/5 transition-colors group">
-      <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">{icon}</div>
-      <div>
-        <h3 className="font-bold text-foreground">{title}</h3>
-        <p className="text-sm text-foreground/60">{content}</p>
-      </div>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={`flex items-center justify-center gap-3 px-6 py-4 rounded-full font-accent text-xs font-bold transition-transform active:scale-95 shadow-card ${className}`}
+    >
+      <Icon className="h-4 w-4" />
+      {label}
     </a>
-  );
-}
-
-function Input({ label, ...props }: any) {
-  return (
-    <div className="space-y-2">
-      <label className="text-xs font-accent uppercase tracking-widest text-primary">{label}</label>
-      <input className="w-full bg-background border border-primary/10 rounded-xl p-4 focus:border-primary outline-none transition-colors" {...props} />
-    </div>
   );
 }
