@@ -1,4 +1,4 @@
-import { Instagram, MessageCircle, Facebook } from "lucide-react";
+import { Instagram, MessageCircle, MapPin, Clock, Phone, Send } from "lucide-react";
 
 export function Footer() {
   return (
@@ -10,28 +10,51 @@ export function Footer() {
             Chic, stylishly confident pieces — handpicked New Styles, dropped weekly in Accra.
           </p>
           <div className="mt-6 flex gap-3">
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"
-            >
-              <Instagram className="h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              aria-label="WhatsApp"
-              className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"
-            >
-              <MessageCircle className="h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary"
-            >
-              <Facebook className="h-4 w-4" />
-            </a>
+            <SocialLink
+              href="https://www.instagram.com/shop_rannys"
+              icon={<Instagram className="h-4 w-4" />}
+              label="Instagram"
+            />
+            <SocialLink
+              href="https://wa.me/233248333294"
+              icon={<MessageCircle className="h-4 w-4" />}
+              label="WhatsApp"
+            />
+            <SocialLink
+              href="https://www.tiktok.com/@shop_rannys_new"
+              icon={<Send className="h-4 w-4" />}
+              label="TikTok"
+            />
           </div>
+        </div>
+        <div>
+          <h4 className="font-accent text-xs text-primary-glow uppercase tracking-wider">
+            Visit Us
+          </h4>
+          <ul className="mt-4 space-y-4 text-sm text-background/80">
+            <li className="flex items-start gap-3">
+              <MapPin className="h-5 w-5 shrink-0 text-primary" />
+              <a
+                href="https://maps.app.goo.gl/B8xMdbdUQZp5dML68"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-white"
+              >
+                Atomic Down Roundabout, Dome, Accra
+              </a>
+            </li>
+            <li className="flex items-start gap-3">
+              <Clock className="h-5 w-5 shrink-0 text-primary" />
+              <div>
+                <p>Mon - Sat: 9am - 8pm</p>
+                <p>Sun: 1pm - 7pm</p>
+              </div>
+            </li>
+            <li className="flex items-center gap-3">
+              <Phone className="h-5 w-5 shrink-0 text-primary" />
+              <span>0248333294 / 0204316701</span>
+            </li>
+          </ul>
         </div>
         <div>
           <h4 className="font-accent text-xs text-primary-glow">Shop</h4>
@@ -89,5 +112,19 @@ export function Footer() {
         <p className="font-accent">Privacy · Terms</p>
       </div>
     </footer>
+  );
+}
+
+function SocialLink({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="grid h-10 w-10 place-items-center rounded-full bg-background/10 transition hover:bg-primary hover:text-white"
+    >
+      {icon}
+    </a>
   );
 }

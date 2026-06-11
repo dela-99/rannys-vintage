@@ -15,9 +15,8 @@ export function BrandStory() {
           Handpicked. <em className="text-gradient not-italic">Imported.</em> Loved.
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-muted-foreground md:text-lg">
-          Every few weeks, Ranny sources the freshest, most current New Styles — so you&apos;re
-          never wearing yesterday&apos;s trend. From international ateliers to your wardrobe in
-          Accra.
+          Every few weeks, Ranny sources the freshest, most current New Styles — so you're never
+          wearing yesterday's trend. From international ateliers to your wardrobe in Accra.
         </p>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
