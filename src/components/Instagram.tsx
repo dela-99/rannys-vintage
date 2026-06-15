@@ -14,13 +14,26 @@ export function Instagram() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <p className="font-accent text-xs text-primary">As Seen On Instagram</p>
-          <h2 className="font-display mt-3 text-4xl text-foreground md:text-5xl">
-            <em className="text-gradient not-italic">@rannysclothing</em>
-          </h2>
+          <a
+            href="https://www.instagram.com/shop_rannys"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block group"
+          >
+            <h2 className="font-display mt-3 text-4xl text-foreground md:text-5xl transition-colors group-hover:text-primary">
+              <em className="text-gradient not-italic">@rannysclothing</em>
+            </h2>
+          </a>
         </div>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-6 md:gap-3">
           {tiles.map((src, i) => (
-            <a key={i} href="#" className="group relative aspect-square overflow-hidden rounded-xl">
+            <a
+              key={i}
+              href="https://www.instagram.com/shop_rannys"
+              target="_blank"
+              rel="noreferrer"
+              className="group relative aspect-square overflow-hidden rounded-xl"
+            >
               <img
                 src={src}
                 alt={`Instagram post ${i + 1}`}
