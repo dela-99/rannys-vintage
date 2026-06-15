@@ -121,5 +121,5 @@ function SidebarLink({
 }
 
 export const Route = createFileRoute("/dashboard")({
-  component: AdminDashboard,
+  component: () => <AdminDashboard />,
 });

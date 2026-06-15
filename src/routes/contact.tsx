@@ -108,5 +108,5 @@ function ContactButton({
 }
 
 export const Route = createFileRoute("/contact")({
-  component: ContactPage,
+  component: () => <ContactPage />,
 });
