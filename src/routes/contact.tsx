@@ -1,6 +1,7 @@
-﻿import { Phone, MessageCircle, Instagram, Send, MapPin, Clock } from "lucide-react";
+import { Phone, MessageCircle, Instagram, Send, MapPin, Clock } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 
-export function ContactPage() {
+function ContactPage() {
   return (
     <div className="pt-28 pb-20 px-4 md:px-8 bg-primary-soft min-h-screen">
       <div className="mx-auto max-w-7xl">
@@ -105,3 +106,7 @@ function ContactButton({
     </a>
   );
 }
+
+export const Route = createFileRoute("/contact")({
+  component: () => <ContactPage />,
+});
