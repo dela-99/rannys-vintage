@@ -1,3 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -19,7 +20,7 @@ const stats = [
   { label: "Subscribers", value: "2.4k", icon: Mail, trend: "+18%" },
 ];
 
-export function AdminDashboard() {
+function AdminDashboard() {
   return (
     <div className="flex min-h-screen bg-slate-50 pt-20">
       {/* Admin Sidebar */}
@@ -118,3 +119,7 @@ function SidebarLink({
     </a>
   );
 }
+
+export const Route = createFileRoute("/dashboard")({
+  component: AdminDashboard,
+});

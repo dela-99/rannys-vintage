@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { LogIn, Mail, Lock, ArrowRight } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 
-export function LoginPage() {
+function LoginPage() {
   const [email, setEmail] = useState("");
 
   return (
@@ -87,3 +88,7 @@ export function LoginPage() {
     </div>
   );
 }
+
+export const Route = createFileRoute("/login")({
+  component: LoginPage,
+});
