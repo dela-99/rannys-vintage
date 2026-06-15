@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Search, ShoppingBag, Heart, Menu, X, Instagram, Send, User, LogIn } from "lucide-react";
+import { Search, ShoppingBag, Heart, Menu, X, User, LogIn } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
@@ -103,25 +103,6 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2 md:gap-4">
-          <div className="hidden items-center gap-4 border-r border-border pr-4 md:flex">
-            <a
-              href="https://www.instagram.com/shop_rannys"
-              target="_blank"
-              rel="noreferrer"
-              className="text-foreground/60 hover:text-primary transition-colors"
-            >
-              <Instagram className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.tiktok.com/@shop_rannys_new"
-              target="_blank"
-              rel="noreferrer"
-              className="text-foreground/60 hover:text-primary transition-colors"
-            >
-              <Send className="h-4 w-4" />
-            </a>
-          </div>
-
           <Link
             to="/shop"
             aria-label="Search"
@@ -193,25 +174,6 @@ export function Navbar() {
               >
                 Login / Account
               </Link>
-
-              <div className="mt-8 flex gap-4">
-                <a
-                  href="https://www.instagram.com/shop_rannys"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 font-accent text-xs text-muted-foreground"
-                >
-                  <Instagram className="h-5 w-5" /> Instagram
-                </a>
-                <a
-                  href="https://www.tiktok.com/@shop_rannys_new"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 font-accent text-xs text-muted-foreground"
-                >
-                  <Send className="h-5 w-5" /> TikTok
-                </a>
-              </div>
             </div>
           </nav>
         </>
