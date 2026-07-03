@@ -76,7 +76,7 @@ app.use("*", async (req, res) => {
         method: req.method,
         headers: req.headers,
         body: req.method !== "GET" && req.method !== "HEAD" ? req.body : undefined,
-      })
+      }),
     );
 
     // Set response headers

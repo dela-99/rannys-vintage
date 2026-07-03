@@ -23,8 +23,8 @@ export function Hero() {
             <span className="italic text-gradient">Stylishly</span> Confident.
           </h1>
           <p className="max-w-md text-base text-white/80 md:text-lg">
-            Handpicked New Styles arriving weekly — for the woman who walks in like she owns
-            the room.
+            Handpicked New Styles arriving weekly — for the woman who walks in like she owns the
+            room.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <button className="group font-accent inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-xs font-semibold text-foreground transition hover:bg-primary hover:text-primary-foreground">

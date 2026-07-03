@@ -1,94 +1,112 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft, KeyRound, Mail } from "lucide-react";
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { LogIn, Mail, Lock, ArrowRight } from "lucide-react";
-import { createFileRoute } from "@tanstack/react-router";
+import { GoogleIcon } from "@/components/GoogleIcon";
+
+// Mock Appwrite SDK for frontend integration
+const appwrite = {
+  account: {
+    createOAuth2Session: (provider: "google", success?: string, failure?: string) => {
+      console.log(`Initiating Appwrite Google OAuth...`);
+      // In a real scenario, this would redirect to Google's auth page.
+      // For now, we'll just log it.
+      // The user would be redirected to `success` URL on success.
+      // Example: createOAuth2Session('google', 'https://example.com/success', 'https://example.com/failure');
+    },
+  },
+};
+
+export const Route = createFileRoute("/login")({
+  component: LoginPage,
+});
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGoogleSignIn = () => {
+    setIsLoading(true);
+    try {
+      // The success and failure URLs should be configured in your Appwrite console
+      appwrite.account.createOAuth2Session("google");
+    } catch (error) {
+      console.error("Failed to initiate Google sign-in", error);
+      setIsLoading(false);
+    }
+    // The page will redirect, so we don't need to set isLoading back to false here.
+  };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-primary-soft flex items-center justify-center px-4 py-20">
-      {/* Background Accents */}
-      <div className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-primary/10 blur-[120px]" />
-      <div className="absolute bottom-[-10%] right-[-10%] h-[40%] w-[40%] rounded-full bg-primary/10 blur-[120px]" />
+    <div className="relative flex min-h-svh flex-col items-center justify-center bg-background px-4 py-12">
+      <Link
+        to="/"
+        className="font-accent absolute left-4 top-4 inline-flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-primary md:left-8 md:top-8"
+      >
+        <ArrowLeft className="h-3 w-3" />
+        Back to Home
+      </Link>
 
-      <div className="relative z-10 w-full max-w-md animate-[fade-up_0.7s_ease-out_both]">
-        <div className="glass border border-white/20 rounded-3xl p-8 md:p-10 shadow-hover">
-          <div className="text-center mb-8">
-            <span className="font-accent text-[10px] uppercase tracking-[0.2em] text-primary">
-              Welcome Back
-            </span>
-            <h1 className="font-display text-4xl mt-2 text-foreground">
-              Sign <em className="text-gradient not-italic">In</em>
-            </h1>
+      <div className="w-full max-w-sm text-center">
+        <Link to="/" className="inline-block">
+          <span className="font-display text-4xl font-bold tracking-tight text-foreground">
+            Ranny&apos;s
+          </span>
+        </Link>
+        <h1 className="font-display mt-4 text-2xl font-semibold text-foreground">Welcome Back</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Sign in to access your account and wishlist.
+        </p>
+
+        <div className="mt-8 space-y-4">
+          <button
+            onClick={handleGoogleSignIn}
+            disabled={isLoading}
+            className="font-accent group inline-flex h-12 w-full items-center justify-center gap-3 rounded-full border border-border bg-background px-6 text-sm font-semibold text-foreground transition-colors hover:bg-muted disabled:opacity-50"
+          >
+            <GoogleIcon className="h-5 w-5" />
+            Continue with Google
+          </button>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            </div>
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-            <div className="space-y-2">
-              <label className="font-accent text-[10px] text-muted-foreground ml-4">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  type="email"
-                  required
-                  className="w-full rounded-full bg-white/50 border border-border px-12 py-4 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+          <form className="space-y-4 text-left">
+            <div className="relative">
+              <Mail className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="h-12 w-full rounded-full border border-border bg-muted pl-12 pr-4 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              />
             </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between items-center ml-4">
-                <label className="font-accent text-[10px] text-muted-foreground">Password</label>
-                <button
-                  type="button"
-                  className="font-accent text-[10px] text-primary hover:underline"
-                >
-                  Forgot?
-                </button>
-              </div>
-              <div className="relative">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  type="password"
-                  required
-                  className="w-full rounded-full bg-white/50 border border-border px-12 py-4 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="••••••••"
-                />
-              </div>
+            <div className="relative">
+              <KeyRound className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="password"
+                placeholder="Password"
+                className="h-12 w-full rounded-full border border-border bg-muted pl-12 pr-4 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              />
             </div>
-
             <button
               type="submit"
-              className="group w-full font-accent inline-flex items-center justify-center gap-2 rounded-full gradient-primary py-4 text-xs font-semibold text-primary-foreground shadow-card transition hover:shadow-hover mt-4"
+              className="font-accent w-full rounded-full bg-foreground py-3.5 text-sm font-semibold text-background transition-colors hover:bg-primary"
             >
-              Access My Account
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Sign In
             </button>
           </form>
-
-          <div className="mt-8 text-center">
-            <p className="text-xs text-muted-foreground">
-              New to Ranny's?{" "}
-              <Link to="/signup" className="text-primary font-semibold hover:underline">
-                Create Account
-              </Link>
-            </p>
-          </div>
         </div>
-
-        <p className="mt-8 text-center text-[10px] text-muted-foreground uppercase tracking-widest">
-          Chic · Stylishly Confident · Ranny's
+        <p className="mt-8 text-center text-xs text-muted-foreground">
+          Don't have an account?{" "}
+          <Link to="#" className="text-primary hover:underline">
+            Sign up
+          </Link>
         </p>
       </div>
     </div>
   );
 }
-
-export const Route = createFileRoute("/login")({
-  component: () => <LoginPage />,
-});

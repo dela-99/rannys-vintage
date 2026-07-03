@@ -1,4 +1,4 @@
-import { CATEGORIES, type Category } from "@/data/products";
+import { CATEGORIES, getSubCategories, type Category } from "@/data/products";
 import { X } from "lucide-react";
 
 export type SortOption = "featured" | "newest" | "price-asc" | "price-desc";

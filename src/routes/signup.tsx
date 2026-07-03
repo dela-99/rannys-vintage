@@ -1,4 +1,3 @@
-// eslint-disable-next-line prettier/prettier
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { User, Mail, Lock, ArrowRight } from "lucide-react";

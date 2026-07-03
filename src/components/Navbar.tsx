@@ -1,17 +1,75 @@
 import { Link } from "@tanstack/react-router";
-import { Search, ShoppingBag, Heart, Menu, X, User, LogIn } from "lucide-react";
+import { Search, ShoppingBag, Heart, Menu, LogIn, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
+import type { Category } from "@/data/products";
 
-const navLinks = [
-  { label: "Home", to: "/" as const },
-  { label: "Shop", to: "/shop" as const },
-  { label: "Dresses", to: "/shop" as const },
-  { label: "Shoes", to: "/shop" as const },
-  { label: "Jewelry", to: "/shop" as const },
-  { label: "Chains", to: "/shop" as const },
-  { label: "About", to: "/#about" as const },
-  { label: "Contact", to: "/contact" as const },
+type NavLink = {
+  label: string;
+  to: string;
+  category?: Category;
+  subCategories?: { label: string; to: string }[];
+};
+
+const navLinks: NavLink[] = [
+  { label: "Home", to: "/" },
+  { label: "Shop", to: "/shop" },
+  {
+    label: "Dresses",
+    to: "/shop?category=Dresses",
+    category: "Dresses",
+    subCategories: [
+      { label: "Dresses", to: "/shop?category=Dresses" },
+      { label: "Jeans", to: "/shop?category=Jeans" },
+      { label: "Tops", to: "/shop?category=Tops" },
+      { label: "Skirts", to: "/shop?category=Skirts" },
+    ],
+  },
+  {
+    label: "Footwear",
+    to: "/shop?category=Footwear",
+    category: "Footwear",
+    subCategories: [
+      { label: "Heels", to: "/shop?category=Heels" },
+      { label: "Easy Wear", to: "/shop?category=Easy Wear" },
+      { label: "Flats", to: "/shop?category=Flats" },
+      { label: "Sandals", to: "/shop?category=Sandals" },
+      { label: "Sneakers", to: "/shop?category=Sneakers" },
+    ],
+  },
+  {
+    label: "Jewelry",
+    to: "/shop?category=Jewelry",
+    category: "Jewelry",
+    subCategories: [
+      { label: "Necklaces", to: "/shop?category=Necklaces" },
+      { label: "Chains", to: "/shop?category=Chains" },
+      { label: "Rings", to: "/shop?category=Rings" },
+      { label: "Earrings", to: "/shop?category=Earrings" },
+    ],
+  },
+  {
+    label: "Bags",
+    to: "/shop?category=Bags",
+    category: "Bags",
+    subCategories: [
+      { label: "Handbags", to: "/shop?category=Handbags" },
+      { label: "Shoulder Bags", to: "/shop?category=Shoulder Bags" },
+      { label: "Crossbody Bags", to: "/shop?category=Crossbody Bags" },
+      { label: "Tote Bags", to: "/shop?category=Tote Bags" },
+    ],
+  },
+  {
+    label: "Accessories",
+    to: "/shop?category=Accessories",
+    category: "Accessories",
+    subCategories: [
+      { label: "Body Splashes", to: "/shop?category=Body Splashes" },
+      { label: "Leggings", to: "/shop?category=Leggings" },
+    ],
+  },
+  { label: "About", to: "/#about" },
+  { label: "Contact", to: "/contact" },
 ];
 
 export function Navbar() {
@@ -89,16 +147,9 @@ export function Navbar() {
           <span className="font-accent ml-1 text-[10px] text-primary">Vintage Clothing</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((l, i) => (
-            <Link
-              key={`${l.label}-${i}`}
-              to={l.to}
-              activeProps={{ className: "text-primary" }}
-              className="font-accent text-[11px] font-medium text-foreground/80 transition hover:text-primary uppercase tracking-wider"
-            >
-              {l.label}
-            </Link>
+        <nav className="group hidden items-center gap-1 md:flex">
+          {navLinks.map((link) => (
+            <NavItem key={link.label} link={link} />
           ))}
         </nav>
 
@@ -150,15 +201,8 @@ export function Navbar() {
             style={{ touchAction: "pan-y" }}
           >
             <div className="flex flex-col gap-0 px-6 py-6">
-              {navLinks.map((l, i) => (
-                <Link
-                  key={`${l.label}-${i}`}
-                  to={l.to}
-                  onClick={closeMenu}
-                  className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
-                >
-                  {l.label}
-                </Link>
+              {navLinks.map((link) => (
+                <MobileNavItem key={link.label} link={link} closeMenu={closeMenu} />
               ))}
               <Link
                 to="/cart"
@@ -179,5 +223,92 @@ export function Navbar() {
         </>
       )}
     </header>
+  );
+}
+
+function NavItem({ link }: { link: NavLink }) {
+  const hasSubCategories = link.subCategories && link.subCategories.length > 0;
+
+  return (
+    <div className="group/item relative">
+      <Link
+        to={link.to as string}
+        activeProps={{ className: "text-primary" }}
+        className="font-accent group-hover/item:text-primary flex items-center gap-1 px-3 py-2 text-[11px] font-medium uppercase tracking-wider text-foreground/80 transition hover:text-primary"
+      >
+        {link.label}
+        {hasSubCategories && (
+          <ChevronDown className="h-3 w-3 transition-transform duration-300 group-hover/item:rotate-180" />
+        )}
+      </Link>
+      {hasSubCategories && (
+        <div className="pointer-events-none absolute left-0 top-full z-10 w-48 rounded-xl bg-background p-2 opacity-0 shadow-lg transition-all duration-300 group-hover/item:pointer-events-auto group-hover/item:opacity-100 group-hover/item:translate-y-2">
+          <div className="flex flex-col">
+            {link.subCategories?.map((subLink) => (
+              <Link
+                key={subLink.label}
+                to={subLink.to as string}
+                className="rounded-lg px-4 py-2 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
+              >
+                {subLink.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MobileNavItem({ link, closeMenu }: { link: NavLink; closeMenu: () => void }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const hasSubCategories = link.subCategories && link.subCategories.length > 0;
+
+  const handleToggle = (e: React.MouseEvent) => {
+    if (hasSubCategories) {
+      e.preventDefault();
+      setIsOpen(!isOpen);
+    } else {
+      closeMenu();
+    }
+  };
+
+  return (
+    <div className="border-b border-border">
+      <Link
+        to={link.to as string}
+        onClick={handleToggle}
+        className="flex items-center justify-between py-4 font-display text-2xl text-foreground transition-colors duration-200 hover:text-primary"
+      >
+        {link.label}
+        {hasSubCategories && (
+          <ChevronDown
+            className={`h-6 w-6 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          />
+        )}
+      </Link>
+      {hasSubCategories && (
+        <div
+          className={`grid overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="min-h-0">
+            <div className="flex flex-col pb-4 pl-4">
+              {link.subCategories?.map((subLink) => (
+                <Link
+                  key={subLink.label}
+                  to={subLink.to as string}
+                  onClick={closeMenu}
+                  className="py-2 text-lg text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {subLink.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
