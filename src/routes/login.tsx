@@ -3,19 +3,6 @@ import { ArrowLeft, KeyRound, Mail } from "lucide-react";
 import { useState } from "react";
 import { GoogleIcon } from "@/components/GoogleIcon";
 
-// Mock Appwrite SDK for frontend integration
-const appwrite = {
-  account: {
-    createOAuth2Session: (provider: "google", success?: string, failure?: string) => {
-      console.log(`Initiating Appwrite Google OAuth...`);
-      // In a real scenario, this would redirect to Google's auth page.
-      // For now, we'll just log it.
-      // The user would be redirected to `success` URL on success.
-      // Example: createOAuth2Session('google', 'https://example.com/success', 'https://example.com/failure');
-    },
-  },
-};
-
 export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
@@ -25,14 +12,7 @@ function LoginPage() {
 
   const handleGoogleSignIn = () => {
     setIsLoading(true);
-    try {
-      // The success and failure URLs should be configured in your Appwrite console
-      appwrite.account.createOAuth2Session("google");
-    } catch (error) {
-      console.error("Failed to initiate Google sign-in", error);
-      setIsLoading(false);
-    }
-    // The page will redirect, so we don't need to set isLoading back to false here.
+    setTimeout(() => setIsLoading(false), 500);
   };
 
   return (
