@@ -14,6 +14,7 @@ export interface Product {
   price: number;
   image: string;
   hoverImage?: string;
+  images?: string[];
   gallery: string[];
   stock: number;
   createdAt: string;
