@@ -5,7 +5,7 @@ import heels from "@/assets/product-heels.jpg";
 import chains from "@/assets/product-chains.jpg";
 import bag from "@/assets/product-bag.jpg";
 
-export type Category = "Dresses" | "Shoes" | "Jewelry" | "Chains" | "Accessories";
+export type Category = "Dresses" | "Footwear" | "Jewelry" | "Chains" | "Bags" | "Accessories";
 
 export interface Product {
   id: string;
@@ -75,7 +75,7 @@ export const products: Product[] = [
   {
     id: "rose-gold-strap-heels",
     name: "Rose Gold Strap Heels",
-    category: "Shoes",
+    category: "Footwear",
     price: 380,
     image: heels,
     gallery: [heels],
@@ -101,7 +101,7 @@ export const products: Product[] = [
   {
     id: "lilac-top-handle-bag",
     name: "Lilac Top Handle Bag",
-    category: "Accessories",
+    category: "Bags",
     price: 420,
     image: bag,
     gallery: [bag],
@@ -126,7 +126,7 @@ export const products: Product[] = [
   {
     id: "obsidian-pump",
     name: "Obsidian Patent Pump",
-    category: "Shoes",
+    category: "Footwear",
     price: 340,
     image: heels,
     gallery: [heels],
@@ -173,7 +173,7 @@ export const products: Product[] = [
   {
     id: "blush-mule-sandal",
     name: "Blush Mule Sandal",
-    category: "Shoes",
+    category: "Footwear",
     price: 310,
     image: heels,
     gallery: [heels],
@@ -192,4 +192,24 @@ export function getRelatedProducts(p: Product, limit = 4) {
   return products.filter((x) => x.id !== p.id && x.category === p.category).slice(0, limit);
 }
 
-export const CATEGORIES: Category[] = ["Dresses", "Shoes", "Jewelry", "Chains", "Accessories"];
+export const CATEGORIES: Category[] = [
+  "Dresses",
+  "Footwear",
+  "Jewelry",
+  "Chains",
+  "Bags",
+  "Accessories",
+];
+
+const SUB_CATEGORIES: Record<Category, string[]> = {
+  Dresses: ["Dresses", "Jeans", "Tops", "Skirts"],
+  Footwear: ["Heels", "Easy Wear", "Flats", "Sandals", "Sneakers"],
+  Jewelry: ["Necklaces", "Chains", "Rings", "Earrings"],
+  Chains: ["Chains"],
+  Bags: ["Handbags", "Shoulder Bags", "Crossbody Bags", "Tote Bags"],
+  Accessories: ["Body Splashes", "Leggings"],
+};
+
+export function getSubCategories(category: Category) {
+  return SUB_CATEGORIES[category];
+}
