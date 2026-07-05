@@ -12,10 +12,15 @@ import { isNewArrival } from "@/lib/dropEngine";
 import { categoryNames } from "@/lib/categories";
 
 const shopSearchSchema = z.object({
-  page: z.number().catch(1),
+  page: z.preprocess((value) => {
+    if (typeof value === "string") {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isNaN(parsed) ? 1 : parsed;
+    }
+    return value;
+  }, z.number().int().positive().catch(1)),
   search: z.string().optional(),
-  category: z.enum(categoryNames).optional(),
-  subcategory: z.string().optional(),
+  categories: z.array(z.enum(categoryNames)).optional(),
   sort: z.enum(["featured", "newest", "price-asc", "price-desc"]).catch("featured"),
   priceMax: z.number().optional(),
   newOnly: z.boolean().optional(),
@@ -50,34 +55,47 @@ function ShopPage() {
   const filters = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
 
-  const { page = 1 } = filters;
+  const page = filters.page ?? 1;
+  const filterState = useMemo<ShopFilterState>(
+    () => ({
+      categories: filters.categories ?? [],
+      search: filters.search ?? "",
+      sort: filters.sort ?? "featured",
+      priceMax: filters.priceMax ?? MAX_PRICE,
+      newOnly: filters.newOnly ?? false,
+      trendingOnly: filters.trendingOnly ?? false,
+      inStockOnly: filters.inStockOnly ?? false,
+    }),
+    [
+      filters.categories,
+      filters.newOnly,
+      filters.priceMax,
+      filters.search,
+      filters.sort,
+      filters.trendingOnly,
+      filters.inStockOnly,
+    ],
+  );
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loading] = useState(false);
 
   const filtered = useMemo(() => {
-    const q = filters.search?.trim().toLowerCase();
+    const q = filterState.search.trim().toLowerCase();
     let list = products.filter((p) => {
-      // Category & Subcategory filtering
-      if (filters.category && p.category !== filters.category) return false;
-
-      // Other filters from ShopFilters component
-      // This part assumes ShopFilters will now handle single category selection logic
-      // and other boolean/range filters.
-      // For this example, I'll map the old logic to the new URL-based state.
-      const filterState = filters as unknown as ShopFilterState;
-      if (filterState.categories?.length && !filterState.categories.includes(p.category))
+      if (filterState.categories.length && !filterState.categories.includes(p.category)) {
         return false;
+      }
 
-      if (filters.newOnly && !isNewArrival(p.createdAt)) return false;
-      if (filters.trendingOnly && !p.trending) return false;
-      if (filters.inStockOnly && p.stock === 0) return false;
-      if (filters.priceMax && p.price > filters.priceMax) return false;
+      if (filterState.newOnly && !isNewArrival(p.createdAt)) return false;
+      if (filterState.trendingOnly && !p.trending) return false;
+      if (filterState.inStockOnly && p.stock === 0) return false;
+      if (filterState.priceMax && p.price > filterState.priceMax) return false;
       if (q && !`${p.name} ${p.category}`.toLowerCase().includes(q)) return false;
       return true;
     });
-    list = sortProducts(list, filters.sort);
+    list = sortProducts(list, filterState.sort);
     return list;
-  }, [filters]);
+  }, [filterState]);
 
   const visible = filtered.slice(0, page * PAGE_SIZE);
   const hasMore = filtered.length > visible.length;
@@ -111,7 +129,7 @@ function ShopPage() {
             <div className="relative flex-1 md:max-w-md">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
-                value={filters.search ?? ""}
+                value={filterState.search}
                 onChange={(e) => updateFilters({ search: e.target.value })}
                 placeholder="Search dresses, shoes, chains..."
                 className="h-12 w-full rounded-full border border-border bg-background pl-11 pr-4 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
@@ -125,7 +143,7 @@ function ShopPage() {
                 <SlidersHorizontal className="h-4 w-4" /> Filters
               </button>
               <select
-                value={filters.sort ?? "featured"}
+                value={filterState.sort}
                 onChange={(e) => updateFilters({ sort: e.target.value as SortOption })}
                 className="font-accent h-12 rounded-full border border-border bg-background px-4 text-xs font-semibold outline-none focus:border-primary"
               >
@@ -142,8 +160,8 @@ function ShopPage() {
             <aside className="hidden md:block">
               <div className="sticky top-28">
                 <ShopFilters
-                  filters={filters as unknown as ShopFilterState}
-                  onChange={(f) => updateFilters(f as Partial<ShopFilterState>)}
+                  filters={filterState}
+                  onChange={(f) => updateFilters(f)}
                   maxPrice={MAX_PRICE}
                 />
               </div>
@@ -220,8 +238,8 @@ function ShopPage() {
           </button>
         </div>
         <ShopFilters
-          filters={filters as unknown as ShopFilterState}
-          onChange={(f) => updateFilters(f as Partial<ShopFilterState>)}
+          filters={filterState}
+          onChange={(f) => updateFilters(f)}
           maxPrice={MAX_PRICE}
         />
         <button

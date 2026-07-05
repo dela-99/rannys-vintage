@@ -1,10 +1,18 @@
 /* eslint-disable prettier/prettier */
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export function HomepageManagerComponent() {
+  const [savedMessage, setSavedMessage] = React.useState("");
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSavedMessage("Changes saved");
+  };
+
   return (
     <div className="rounded-2xl border border-border bg-white p-8 shadow-card">
       <div className="mb-6">
@@ -14,7 +22,7 @@ export function HomepageManagerComponent() {
         </p>
       </div>
 
-      <form className="space-y-8">
+      <form className="space-y-8" onSubmit={handleSubmit}>
         <div className="space-y-4 border-b border-border pb-8">
           <h4 className="font-semibold">Hero Section</h4>
           <div className="space-y-2">
@@ -52,6 +60,7 @@ export function HomepageManagerComponent() {
           </p>
         </div>
 
+        {savedMessage ? <p className="text-sm text-primary">{savedMessage}</p> : null}
         <Button type="submit">Save Changes</Button>
       </form>
     </div>

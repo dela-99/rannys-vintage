@@ -36,7 +36,7 @@ function AdminDashboard() {
           <SidebarLink to="/dashboard/orders" icon={ShoppingBag} label="Orders" />
           <SidebarLink to="/dashboard/complaints" icon={AlertCircle} label="Complaints" />
           <SidebarLink to="/dashboard/requests" icon={MessageSquare} label="Requests" />
-          <SidebarLink to="/dashboard/products" icon={Box} label="Products" />
+          <SidebarLink to="/dashboard/products" icon={Box} label="Products" exact />
           <SidebarLink to="/dashboard/products/add" icon={PlusCircle} label="Add Product" />
           <SidebarLink to="/dashboard/messages" icon={Mail} label="Messages" />
         </nav>
@@ -48,12 +48,19 @@ function AdminDashboard() {
             <p className="font-accent text-xs uppercase tracking-widest text-primary">Overview</p>
             <h1 className="mt-2 font-display text-4xl">Studio Control</h1>
           </div>
-          <Link to="/dashboard/products/add">
+          <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2 shadow-sm">
               <div className="h-2 w-2 animate-pulse rounded-full bg-success" />
               <span className="text-[10px] font-accent font-semibold uppercase">System Live</span>
             </div>
-          </Link>
+            <Link
+              to="/dashboard/products/add"
+              aria-label="Add Product"
+              className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-primary-soft"
+            >
+              Add Product
+            </Link>
+          </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
