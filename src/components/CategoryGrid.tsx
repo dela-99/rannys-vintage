@@ -1,15 +1,18 @@
+import { Link } from "@tanstack/react-router";
 import dress from "@/assets/product-dress-3.jpg";
 import shoes from "@/assets/product-heels.jpg";
-import chain from "@/assets/product-chains.jpg";
-import bag from "@/assets/product-bag.jpg";
 import jewel from "@/assets/collection-side-1.jpg";
+import bag from "@/assets/product-bag.jpg";
+import accessories from "@/assets/product-chains.jpg"; // Re-using chains image for accessories
+import newArrivals from "@/assets/collection-main.jpg"; // Re-using collection image for new arrivals
 
 const categories = [
-  { name: "Dresses", img: dress, span: "" },
-  { name: "Shoes", img: shoes, span: "" },
-  { name: "Jewelry", img: jewel, span: "" },
-  { name: "Chains", img: chain, span: "" },
-  { name: "Accessories", img: bag, span: "" },
+  { name: "Dresses", to: "/shop", search: { category: "Dresses" }, img: dress },
+  { name: "Footwear", to: "/shop", search: { category: "Footwear" }, img: shoes },
+  { name: "Jewelry", to: "/shop", search: { category: "Jewelry" }, img: jewel },
+  { name: "Bags", to: "/shop", search: { category: "Bags" }, img: bag },
+  { name: "Accessories", to: "/shop", search: { category: "Accessories" }, img: accessories },
+  { name: "New Arrivals", to: "/shop", search: { newOnly: true }, img: newArrivals },
 ];
 
 export function CategoryGrid() {
@@ -23,25 +26,26 @@ export function CategoryGrid() {
           </h2>
         </div>
 
-        <div className="grid auto-rows-[180px] grid-cols-2 gap-4 md:auto-rows-[220px] md:grid-cols-4 md:gap-6">
+        <div className="grid auto-rows-[220px] grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
           {categories.map((c) => (
-            <a
+            <Link
               key={c.name}
-              href="#"
-              className={`group relative overflow-hidden rounded-2xl bg-foreground shadow-card transition hover:shadow-hover ${c.span}`}
+              to={c.to}
+              search={c.search}
+              className="group relative overflow-hidden rounded-2xl bg-foreground shadow-card transition hover:shadow-hover"
             >
               <img
                 src={c.img}
                 alt={c.name}
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-foreground/85 via-foreground/20 to-transparent transition-opacity group-hover:from-primary/85" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity group-hover:from-primary/70" />
               <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-7">
                 <h3 className="font-display mt-1 text-2xl text-white md:text-3xl">{c.name}</h3>
                 <span className="font-accent mt-1 text-[10px] text-white/80">Explore →</span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 export const categories = [
   {
     name: "Jewelry",
-    subcategories: ["Earrings", "Necklaces", "Chains", "Rings"],
+    subcategories: ["Earrings", "Necklaces", "Chains", "Rings", "Bracelets"],
   },
   {
     name: "Footwear",
@@ -13,11 +13,11 @@ export const categories = [
   },
   {
     name: "Bags",
-    subcategories: ["Handbags", "Shoulder Bags", "Crossbody Bags", "Tote Bags"],
+    subcategories: ["Handbags", "Shoulder Bags", "Crossbody Bags", "Tote Bags", "Travel Bags"],
   },
   {
     name: "Accessories",
-    subcategories: ["Body Splashes", "Leggings"],
+    subcategories: ["Leggings", "Body Splash"],
   },
 ] as const;
 
@@ -44,12 +44,16 @@ export type Product = {
   category: Category;
   subcategory: Subcategory<Category>;
   price: number;
+  previousPrice?: number;
   description: string;
   stock: number;
   images: string[];
+  sizes?: string[];
+  colors?: string[];
   featured: boolean;
   newArrival: boolean;
   trending: boolean;
+  isVisible: boolean;
   createdAt: Date;
 };
 
@@ -60,6 +64,7 @@ export const allProducts: Product[] = [
     category: "Jewelry",
     subcategory: "Earrings",
     price: 150,
+    isVisible: true,
     description: "...",
     stock: 5,
     images: [],
@@ -74,6 +79,7 @@ export const allProducts: Product[] = [
     category: "Bags",
     subcategory: "Tote Bags",
     price: 350,
+    isVisible: true,
     description: "...",
     stock: 2,
     images: [],
@@ -88,6 +94,7 @@ export const allProducts: Product[] = [
     category: "Footwear",
     subcategory: "Sneakers",
     price: 220,
+    isVisible: true,
     description: "...",
     stock: 8,
     images: [],
@@ -102,6 +109,7 @@ export const allProducts: Product[] = [
     category: "Dresses",
     subcategory: "Jeans",
     price: 180,
+    isVisible: true,
     description: "...",
     stock: 10,
     images: [],
