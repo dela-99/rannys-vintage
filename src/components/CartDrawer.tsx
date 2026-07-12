@@ -81,7 +81,7 @@ export function CartDrawer() {
             <header className="flex items-center justify-between border-b border-border px-6 py-5">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="h-5 w-5 text-primary" />
-                <h2 className="font-display text-xl">Your Bag ({count})</h2>
+                <h2 className="font-display text-xl">Your Cart ({count})</h2>
               </div>
               <button onClick={closeDrawer} aria-label="Close cart">
                 <X className="h-5 w-5" />
@@ -95,7 +95,7 @@ export function CartDrawer() {
                     <ShoppingBag className="h-8 w-8 text-primary" />
                   </div>
                   <div>
-                    <p className="font-display text-xl">Your bag is empty</p>
+                    <p className="font-display text-xl">Your cart is empty</p>
                     <p className="mt-1 text-sm text-muted-foreground">Discover our latest drop.</p>
                   </div>
                   <Link
@@ -181,7 +181,7 @@ export function CartDrawer() {
                     onClick={closeDrawer}
                     className="font-accent block w-full rounded-full bg-foreground py-3 text-center text-xs font-semibold text-background hover:bg-primary"
                   >
-                    View bag & checkout
+                    View cart & checkout
                   </Link>
                   <button
                     onClick={closeDrawer}

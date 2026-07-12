@@ -209,7 +209,7 @@ export function Navbar() {
                 onClick={closeMenu}
                 className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
               >
-                Bag ({count})
+                Cart ({count})
               </Link>
               <Link
                 to="/login"
