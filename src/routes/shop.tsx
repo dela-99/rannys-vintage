@@ -102,7 +102,14 @@ function ShopPage() {
 
   const updateFilters = (next: Partial<ShopFilterState>) => {
     navigate({
-      search: (prev: z.infer<typeof shopSearchSchema>) => ({ ...prev, ...next, page: 1 }),
+      search: (prev: z.infer<typeof shopSearchSchema>) => {
+        const updated = { ...prev, ...next, page: 1 };
+        // Ensure categories match the schema
+        if (updated.categories) {
+          updated.categories = updated.categories.filter((cat) => categoryNames.includes(cat as any)) as any;
+        }
+        return updated;
+      },
       replace: true,
     });
   };

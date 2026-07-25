@@ -38,13 +38,13 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
     if (user) {
       if (fromAdmin) {
         if (user.role === "admin") {
-          navigate({ to: "/_admin/welcome" });
+          navigate({ to: "/welcome" });
         } else {
           navigate({ to: "/access-denied" });
         }
       } else {
         if (user.role === "admin") {
-          navigate({ to: "/_admin/welcome" });
+          navigate({ to: "/welcome" });
         } else {
           navigate({ to: search.redirect });
         }

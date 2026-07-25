@@ -10,7 +10,7 @@ function WelcomeScreen() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate({ to: "/_admin/dashboard", replace: true });
+      navigate({ to: "/dashboard", replace: true });
     }, 2000);
 
     return () => clearTimeout(timer);

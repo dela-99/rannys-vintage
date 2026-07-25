@@ -4,6 +4,15 @@ import { ArrowRight, Lock, Mail, User } from "lucide-react";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { GoogleIcon } from "@/components/GoogleIcon";
 
+export const Route = createFileRoute("/signup")({
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      redirect: (search.redirect as string) || "/",
+    };
+  },
+  component: SignupPage,
+});
+
 export function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,7 +36,7 @@ export function SignupPage() {
           <Link
             to="/login"
             params={{}}
-            search={{}}
+            search={{ redirect: "/" }}
             className="font-semibold text-primary transition-colors hover:underline"
           >
             Sign In
