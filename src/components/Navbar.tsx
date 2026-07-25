@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Search, ShoppingBag, Heart, Menu, LogIn, ChevronDown } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/context/CartContext";
 import type { Category } from "@/data/products";
 import { useAuth } from "@/auth";
 

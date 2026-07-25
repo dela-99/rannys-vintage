@@ -14,7 +14,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { DropBadge } from "@/components/DropBadge";
 import { getProductById, getRelatedProducts } from "@/data/products";
 import { formatPrice, getDropStatus } from "@/lib/dropEngine";
-import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/context/CartContext";
 
 export const Route = createFileRoute("/products/$productId")({
   loader: ({ params }) => {
