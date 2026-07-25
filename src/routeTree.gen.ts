@@ -11,11 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PromotionsRouteImport } from './routes/promotions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CartRouteImport } from './routes/cart'
+import { Route as AccessDeniedRouteImport } from './routes/access-denied'
+import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsProductIdRouteImport } from './routes/products.$productId'
+import { Route as AdminWelcomeRouteImport } from './routes/_admin.welcome'
+import { Route as AdminDashboardRouteImport } from './routes/_admin.dashboard'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -25,6 +31,16 @@ const SignupRoute = SignupRouteImport.update({
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PromotionsRoute = PromotionsRouteImport.update({
+  id: '/promotions',
+  path: '/promotions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -42,6 +58,15 @@ const CartRoute = CartRouteImport.update({
   path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccessDeniedRoute = AccessDeniedRouteImport.update({
+  id: '/access-denied',
+  path: '/access-denied',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/_admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -52,70 +77,116 @@ const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
   path: '/products/$productId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminWelcomeRoute = AdminWelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
+  '/promotions': typeof PromotionsRoute
+  '/register': typeof RegisterRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
+  '/dashboard': typeof AdminDashboardRoute
+  '/welcome': typeof AdminWelcomeRoute
   '/products/$productId': typeof ProductsProductIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/access-denied': typeof AccessDeniedRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
+  '/promotions': typeof PromotionsRoute
+  '/register': typeof RegisterRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
+  '/dashboard': typeof AdminDashboardRoute
+  '/welcome': typeof AdminWelcomeRoute
   '/products/$productId': typeof ProductsProductIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_admin': typeof AdminRouteWithChildren
+  '/access-denied': typeof AccessDeniedRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
+  '/promotions': typeof PromotionsRoute
+  '/register': typeof RegisterRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
+  '/_admin/dashboard': typeof AdminDashboardRoute
+  '/_admin/welcome': typeof AdminWelcomeRoute
   '/products/$productId': typeof ProductsProductIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/access-denied'
     | '/cart'
     | '/contact'
     | '/login'
+    | '/promotions'
+    | '/register'
     | '/shop'
     | '/signup'
+    | '/dashboard'
+    | '/welcome'
     | '/products/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/access-denied'
     | '/cart'
     | '/contact'
     | '/login'
+    | '/promotions'
+    | '/register'
     | '/shop'
     | '/signup'
+    | '/dashboard'
+    | '/welcome'
     | '/products/$productId'
   id:
     | '__root__'
     | '/'
+    | '/_admin'
+    | '/access-denied'
     | '/cart'
     | '/contact'
     | '/login'
+    | '/promotions'
+    | '/register'
     | '/shop'
     | '/signup'
+    | '/_admin/dashboard'
+    | '/_admin/welcome'
     | '/products/$productId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AccessDeniedRoute: typeof AccessDeniedRoute
   CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
   LoginRoute: typeof LoginRoute
+  PromotionsRoute: typeof PromotionsRoute
+  RegisterRoute: typeof RegisterRoute
   ShopRoute: typeof ShopRoute
   SignupRoute: typeof SignupRoute
   ProductsProductIdRoute: typeof ProductsProductIdRoute
@@ -135,6 +206,20 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/promotions': {
+      id: '/promotions'
+      path: '/promotions'
+      fullPath: '/promotions'
+      preLoaderRoute: typeof PromotionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -158,6 +243,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/access-denied': {
+      id: '/access-denied'
+      path: '/access-denied'
+      fullPath: '/access-denied'
+      preLoaderRoute: typeof AccessDeniedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_admin': {
+      id: '/_admin'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -172,14 +271,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_admin/welcome': {
+      id: '/_admin/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof AdminWelcomeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/dashboard': {
+      id: '/_admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminWelcomeRoute: typeof AdminWelcomeRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminWelcomeRoute: AdminWelcomeRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AccessDeniedRoute: AccessDeniedRoute,
   CartRoute: CartRoute,
   ContactRoute: ContactRoute,
   LoginRoute: LoginRoute,
+  PromotionsRoute: PromotionsRoute,
+  RegisterRoute: RegisterRoute,
   ShopRoute: ShopRoute,
   SignupRoute: SignupRoute,
   ProductsProductIdRoute: ProductsProductIdRoute,

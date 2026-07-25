@@ -13,7 +13,7 @@ function AccessDeniedComponent() {
         You do not have permission to access the administration panel.
       </p>
       <Button asChild>
-        <Link to="/">Return to Store</Link>
+        <Link to="/" params={{}}>Return to Store</Link>
       </Button>
     </div>
   );

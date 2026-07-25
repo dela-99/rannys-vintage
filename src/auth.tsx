@@ -1,4 +1,3 @@
-/*
 import * as React from "react";
 import { useRouter } from "@tanstack/react-router";
 
@@ -63,4 +62,3 @@ export function useAuth() {
   }
   return context;
 }
-*/

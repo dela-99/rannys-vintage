@@ -3,8 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Route = createFileRoute("/admin/promotions" as any)({
+export const Route = createFileRoute("/promotions")({
   component: PromotionsComponent,
 });
 

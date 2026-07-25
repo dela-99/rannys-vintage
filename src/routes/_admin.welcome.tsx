@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
-export const Route = createFileRoute("/admin/welcome")({
+export const Route = createFileRoute("/_admin/welcome")({
   component: WelcomeScreen,
 });
 
@@ -10,7 +10,7 @@ function WelcomeScreen() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate({ to: "/admin/dashboard", replace: true });
+      navigate({ to: "/_admin/dashboard", replace: true });
     }, 2000);
 
     return () => clearTimeout(timer);

@@ -16,6 +16,7 @@ export function AuthLayout({ title, description, children, footer }: AuthLayoutP
       <div className="relative w-full max-w-md">
         <Link
           to="/"
+          params={{}}
           className="font-accent mb-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-primary transition-colors hover:text-primary/80"
         >
           <ArrowLeft className="h-3.5 w-3.5" />

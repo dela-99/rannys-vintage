@@ -38,13 +38,13 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
     if (user) {
       if (fromAdmin) {
         if (user.role === "admin") {
-          navigate({ to: "/admin/welcome" });
+          navigate({ to: "/_admin/welcome" });
         } else {
           navigate({ to: "/access-denied" });
         }
       } else {
         if (user.role === "admin") {
-          navigate({ to: "/admin/welcome" });
+          navigate({ to: "/_admin/welcome" });
         } else {
           navigate({ to: search.redirect });
         }
@@ -56,7 +56,7 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
     <div className="flex min-h-screen w-full items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm">
         <div className="text-center">
-          <Link to="/" className="font-display inline-block text-3xl font-bold">
+          <Link to="/" params={{}} className="font-display inline-block text-3xl font-bold">
             Ranny&apos;s
           </Link>
           <h1 className="font-display mt-4 text-2xl font-semibold">
@@ -102,7 +102,7 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
           Don't have an account?{" "}
-          <Link to="/signup" className="font-semibold text-primary hover:underline">
+          <Link to="/signup" params={{}} className="font-semibold text-primary hover:underline">
             Sign up
           </Link>
         </p>

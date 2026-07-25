@@ -26,6 +26,8 @@ export function SignupPage() {
           Already have an account?{" "}
           <Link
             to="/login"
+            params={{}}
+            search={{}}
             className="font-semibold text-primary transition-colors hover:underline"
           >
             Sign In

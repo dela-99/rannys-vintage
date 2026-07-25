@@ -142,7 +142,7 @@ export function Navbar() {
           <Menu className="h-6 w-6 transition-transform duration-300" />
         </button>
 
-        <Link to="/" className="flex items-center">
+        <Link to="/" params={{}} className="flex items-center">
           <span className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
             Ranny&apos;s
           </span>
@@ -157,7 +157,9 @@ export function Navbar() {
 
         <div className="flex items-center gap-2 md:gap-4">
           <Link
-            to="/shop"
+            to="/login"
+            params={{}}
+            search={{ redirect: "/shop" }}
             aria-label="Search"
             className="hidden text-foreground/80 hover:text-primary md:block transition-colors"
           >
@@ -189,6 +191,8 @@ export function Navbar() {
           ) : (
             <Link
               to="/login"
+              params={{}}
+              search={{ redirect: "/" }}
               className="hidden items-center gap-2 rounded-full bg-foreground px-4 py-2 text-[10px] font-semibold text-background transition hover:bg-primary md:flex"
             >
               <LogIn className="h-3.5 w-3.5" />
@@ -217,6 +221,7 @@ export function Navbar() {
               ))}
               <Link
                 to="/cart"
+                params={{}}
                 onClick={closeMenu}
                 className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
               >
@@ -235,6 +240,8 @@ export function Navbar() {
               ) : (
                 <Link
                   to="/login"
+                  params={{}}
+                  search={{ redirect: "/" }}
                   onClick={closeMenu}
                   className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
                 >
@@ -256,6 +263,8 @@ function NavItem({ link }: { link: NavLink }) {
     <div className="group/item relative">
       <Link
         to={link.to as string}
+        params={{}}
+        search={{}}
         activeProps={{ className: "text-primary" }}
         className="font-accent group-hover/item:text-primary flex items-center gap-1 px-3 py-2 text-[11px] font-medium uppercase tracking-wider text-foreground/80 transition hover:text-primary"
       >
@@ -271,6 +280,8 @@ function NavItem({ link }: { link: NavLink }) {
               <Link
                 key={subLink.label}
                 to={subLink.to as string}
+                params={{}}
+                search={{}}
                 className="rounded-lg px-4 py-2 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
               >
                 {subLink.label}
@@ -300,6 +311,8 @@ function MobileNavItem({ link, closeMenu }: { link: NavLink; closeMenu: () => vo
     <div className="border-b border-border">
       <Link
         to={link.to as string}
+        params={{}}
+        search={{}}
         onClick={handleToggle}
         className="flex items-center justify-between py-4 font-display text-2xl text-foreground transition-colors duration-200 hover:text-primary"
       >
@@ -322,6 +335,8 @@ function MobileNavItem({ link, closeMenu }: { link: NavLink; closeMenu: () => vo
                 <Link
                   key={subLink.label}
                   to={subLink.to as string}
+                  params={{}}
+                  search={{}}
                   onClick={closeMenu}
                   className="py-2 text-lg text-muted-foreground transition-colors hover:text-primary"
                 >

@@ -17,7 +17,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { DropBadge } from "@/components/DropBadge";
 import { getProductById, getRelatedProducts } from "@/data/products";
 import { formatPrice, getDropStatus } from "@/lib/dropEngine";
-import { useCart } from "@/context/CartContext";
+import { useCart } from "@/hooks/useCart";
 
 export const Route = createFileRoute("/products/$productId")({
   loader: ({ params }) => {
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/products/$productId")({
     <div className="grid min-h-screen place-items-center bg-background">
       <div className="text-center">
         <h1 className="font-display text-4xl">Product not found</h1>
-        <Link to="/shop" className="mt-4 inline-block text-primary underline">
+        <Link to="/shop" params={{}} search={{}} className="mt-4 inline-block text-primary underline">
           Back to shop
         </Link>
       </div>
@@ -83,11 +83,11 @@ function ProductPage() {
       <main className="pt-20 md:pt-24">
         <div className="mx-auto max-w-7xl px-4 py-6 md:px-8">
           <nav className="font-accent mb-6 text-[10px] text-muted-foreground">
-            <Link to="/" className="hover:text-primary">
+            <Link to="/" params={{}} className="hover:text-primary">
               Home
             </Link>
             <span className="mx-2">/</span>
-            <Link to="/shop" className="hover:text-primary">
+            <Link to="/shop" params={{}} search={{}} className="hover:text-primary">
               Shop
             </Link>
             <span className="mx-2">/</span>
