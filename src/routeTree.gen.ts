@@ -11,9 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShopRouteImport } from './routes/shop'
-import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
@@ -29,19 +27,9 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -69,9 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -80,9 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -92,9 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
   '/shop': typeof ShopRoute
   '/signup': typeof SignupRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -105,9 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cart'
     | '/contact'
-    | '/dashboard'
     | '/login'
-    | '/register'
     | '/shop'
     | '/signup'
     | '/products/$productId'
@@ -116,9 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cart'
     | '/contact'
-    | '/dashboard'
     | '/login'
-    | '/register'
     | '/shop'
     | '/signup'
     | '/products/$productId'
@@ -127,9 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cart'
     | '/contact'
-    | '/dashboard'
     | '/login'
-    | '/register'
     | '/shop'
     | '/signup'
     | '/products/$productId'
@@ -139,9 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
-  DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
-  RegisterRoute: typeof RegisterRoute
   ShopRoute: typeof ShopRoute
   SignupRoute: typeof SignupRoute
   ProductsProductIdRoute: typeof ProductsProductIdRoute
@@ -163,25 +137,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -219,9 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CartRoute: CartRoute,
   ContactRoute: ContactRoute,
-  DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
-  RegisterRoute: RegisterRoute,
   ShopRoute: ShopRoute,
   SignupRoute: SignupRoute,
   ProductsProductIdRoute: ProductsProductIdRoute,

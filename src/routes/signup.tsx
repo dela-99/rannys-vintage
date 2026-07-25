@@ -3,22 +3,17 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Lock, Mail, User } from "lucide-react";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { GoogleIcon } from "@/components/GoogleIcon";
-import { signInWithGoogle } from "@/lib/auth";
 
 export function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [statusMessage] = useState<string | null>(null);
 
   const handleGoogleSignUp = async () => {
     setIsLoading(true);
-    setStatusMessage(null);
-    const result = await signInWithGoogle();
-    setStatusMessage(
-      result.success ? "Google sign-up is primed for the next Appwrite OAuth step." : result.reason,
-    );
+    // Replace with Convex Google sign-up logic
     setIsLoading(false);
   };
 

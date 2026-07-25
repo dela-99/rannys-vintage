@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { Search, ShoppingBag, Heart, Menu, LogIn, ChevronDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { useCart } from "@/context/CartContext";
+import React, { useEffect, useRef, useState } from "react";
+import { useCart } from "@/hooks/useCart";
 import type { Category } from "@/data/products";
+import { useAuth } from "@/auth";
 
 type NavLink = {
   label: string;
@@ -78,6 +79,7 @@ export function Navbar() {
   const bodyLockRef = useRef<{ overflow: string; paddingRight: string } | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const { count, openDrawer } = useCart();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -177,13 +179,22 @@ export function Navbar() {
               {count}
             </span>
           </button>
-          <Link
-            to="/login"
-            className="hidden items-center gap-2 rounded-full bg-foreground px-4 py-2 text-[10px] font-semibold text-background transition hover:bg-primary md:flex"
-          >
-            <LogIn className="h-3.5 w-3.5" />
-            Login
-          </Link>
+          {user ? (
+            <button
+              onClick={() => signOut()}
+              className="hidden items-center gap-2 rounded-full bg-foreground px-4 py-2 text-[10px] font-semibold text-background transition hover:bg-primary md:flex"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="hidden items-center gap-2 rounded-full bg-foreground px-4 py-2 text-[10px] font-semibold text-background transition hover:bg-primary md:flex"
+            >
+              <LogIn className="h-3.5 w-3.5" />
+              Login
+            </Link>
+          )}
         </div>
       </div>
 
@@ -211,13 +222,25 @@ export function Navbar() {
               >
                 Cart ({count})
               </Link>
-              <Link
-                to="/login"
-                onClick={closeMenu}
-                className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
-              >
-                Login / Account
-              </Link>
+              {user ? (
+                <button
+                  onClick={() => {
+                    signOut();
+                    closeMenu();
+                  }}
+                  className="font-display border-b border-border py-4 text-left text-2xl text-foreground transition-colors duration-200 hover:text-primary"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={closeMenu}
+                  className="font-display border-b border-border py-4 text-2xl text-foreground transition-colors duration-200 hover:text-primary"
+                >
+                  Login / Account
+                </Link>
+              )}
             </div>
           </nav>
         </>
@@ -269,7 +292,7 @@ function MobileNavItem({ link, closeMenu }: { link: NavLink; closeMenu: () => vo
       e.preventDefault();
       setIsOpen(!isOpen);
     } else {
-      closeMenu();
+      if (link.to) closeMenu();
     }
   };
 

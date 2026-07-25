@@ -49,7 +49,7 @@ export const Route = createFileRoute("/shop")({
 });
 
 const PAGE_SIZE = 8;
-const MAX_PRICE = Math.max(...products.map((p) => p.price));
+const MAX_PRICE = 1000;
 
 function ShopPage() {
   const filters = Route.useSearch();
