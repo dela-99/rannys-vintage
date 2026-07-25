@@ -10,9 +10,6 @@ import {
   RotateCcw,
   Shield,
 } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
 import { DropBadge } from "@/components/DropBadge";
 import { getProductById, getRelatedProducts } from "@/data/products";
@@ -79,7 +76,6 @@ function ProductPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
       <main className="pt-20 md:pt-24">
         <div className="mx-auto max-w-7xl px-4 py-6 md:px-8">
           <nav className="font-accent mb-6 text-[10px] text-muted-foreground">
@@ -275,8 +271,6 @@ function ProductPage() {
           )}
         </div>
       </main>
-      <Footer />
-      <WhatsAppButton />
     </div>
   );
 }

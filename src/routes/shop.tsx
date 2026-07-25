@@ -2,9 +2,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { z } from "zod";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
 import { ShopFilters, type ShopFilterState, type SortOption } from "@/components/ShopFilters";
 import { products } from "@/data/products";
@@ -116,7 +113,6 @@ function ShopPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
       <main className="pt-24 md:pt-28">
         {/* Hero */}
         <section className="border-b border-border bg-gradient-soft">
@@ -222,9 +218,6 @@ function ShopPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-      <WhatsAppButton />
 
       {/* Mobile filter drawer */}
       <div

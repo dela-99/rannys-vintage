@@ -1,15 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/dropEngine";
 
 export function CartDrawer() {
-  const { items, isOpen: drawerOpen, setIsOpen, removeItem, updateQuantity, total: subtotal, count } = useCart();
+  const { items, drawerOpen, closeDrawer, remove, setQuantity, subtotal, count } = useCart();
   const [isMounted, setIsMounted] = useState(false);
   const bodyLockRef = useRef<{ overflow: string; paddingRight: string } | null>(null);
-
-  const closeDrawer = () => setIsOpen(false);
 
   useEffect(() => {
     if (drawerOpen) {

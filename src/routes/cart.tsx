@@ -1,8 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2, MessageCircle } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/dropEngine";
 
@@ -29,7 +26,6 @@ function CartPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
       <main className="pt-24 md:pt-28">
         <div className="mx-auto max-w-6xl px-4 py-8 md:px-8 md:py-12">
           <div className="flex items-end justify-between">
@@ -163,8 +159,6 @@ function CartPage() {
           )}
         </div>
       </main>
-      <Footer />
-      <WhatsAppButton />
     </div>
   );
 }
