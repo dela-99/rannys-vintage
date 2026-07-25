@@ -1,13 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useCart } from "@/context/CartContext";
+import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "@/lib/dropEngine";
 
 export function CartDrawer() {
-  const { items, drawerOpen, closeDrawer, remove, setQuantity, subtotal, count } = useCart();
+  const { items, isOpen: drawerOpen, setIsOpen, removeItem, updateQuantity, total: subtotal, count } = useCart();
   const [isMounted, setIsMounted] = useState(false);
   const bodyLockRef = useRef<{ overflow: string; paddingRight: string } | null>(null);
+
+  const closeDrawer = () => setIsOpen(false);
 
   useEffect(() => {
     if (drawerOpen) {
@@ -48,7 +50,7 @@ export function CartDrawer() {
         bodyLockRef.current = null;
       }
     };
-  }, [drawerOpen, isMounted, closeDrawer]);
+  }, [drawerOpen, isMounted]);
 
   return (
     <>
@@ -109,38 +111,29 @@ export function CartDrawer() {
               ) : (
                 <ul className="space-y-5">
                   {items.map((item) => (
-                    <li key={item.id} className="flex gap-4">
-                      <Link
-                        to="/products/$productId"
-                        params={{ productId: item.product.id }}
-                        onClick={closeDrawer}
-                        className="block h-24 w-20 shrink-0 overflow-hidden rounded-lg bg-muted"
-                      >
-                        <img
-                          src={item.product.image}
-                          alt={item.product.name}
-                          className="h-full w-full object-cover"
-                        />
-                      </Link>
+                    <li key={item.productId} className="flex gap-4">
+                      {item.image && (
+                        <div className="block h-24 w-20 shrink-0 overflow-hidden rounded-lg bg-muted">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                      )}
                       <div className="flex flex-1 flex-col">
                         <div className="flex justify-between gap-2">
                           <div>
-                            <p className="font-accent text-[10px] text-muted-foreground">
-                              {item.product.category}
-                            </p>
-                            <p className="text-sm font-medium">{item.product.name}</p>
-                            {item.size && (
-                              <p className="text-xs text-muted-foreground">Size {item.size}</p>
-                            )}
+                            <p className="text-sm font-medium">{item.name}</p>
                           </div>
-                          <button onClick={() => remove(item.id)} aria-label="Remove">
+                          <button onClick={() => removeItem(item.productId)} aria-label="Remove">
                             <Trash2 className="h-4 w-4 text-muted-foreground hover:text-destructive" />
                           </button>
                         </div>
                         <div className="mt-auto flex items-center justify-between pt-2">
                           <div className="inline-flex items-center rounded-full border border-border">
                             <button
-                              onClick={() => setQuantity(item.id, item.quantity - 1)}
+                              onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                               className="grid h-8 w-8 place-items-center hover:text-primary"
                               aria-label="Decrease"
                             >
@@ -148,7 +141,7 @@ export function CartDrawer() {
                             </button>
                             <span className="w-7 text-center text-sm">{item.quantity}</span>
                             <button
-                              onClick={() => setQuantity(item.id, item.quantity + 1)}
+                              onClick={() => updateQuantity(item.productId, item.quantity + 1)}
                               className="grid h-8 w-8 place-items-center hover:text-primary"
                               aria-label="Increase"
                             >
@@ -156,7 +149,7 @@ export function CartDrawer() {
                             </button>
                           </div>
                           <p className="text-sm font-semibold text-primary">
-                            {formatPrice(item.product.price * item.quantity)}
+                            {formatPrice(item.price * item.quantity)}
                           </p>
                         </div>
                       </div>
@@ -178,6 +171,7 @@ export function CartDrawer() {
                 <div className="mt-4 flex flex-col gap-2">
                   <Link
                     to="/cart"
+                    params={{}}
                     onClick={closeDrawer}
                     className="font-accent block w-full rounded-full bg-foreground py-3 text-center text-xs font-semibold text-background hover:bg-primary"
                   >

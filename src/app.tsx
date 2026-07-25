@@ -1,6 +1,7 @@
 import { RouterProvider } from "@tanstack/react-router";
 import { AuthProvider, useAuth } from "./auth";
 import { router } from "./router";
+import { CartProvider } from "./hooks/useCart";
 
 function InnerApp() {
   const auth = useAuth();
@@ -11,7 +12,9 @@ function InnerApp() {
 function App() {
   return (
     <AuthProvider>
-      <InnerApp />
+      <CartProvider>
+        <InnerApp />
+      </CartProvider>
     </AuthProvider>
   );
 }
