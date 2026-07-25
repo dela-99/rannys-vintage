@@ -125,7 +125,3 @@ export function SignupPage() {
     </AuthLayout>
   );
 }
-
-export const Route = createFileRoute("/signup")({
-  component: SignupPage,
-});

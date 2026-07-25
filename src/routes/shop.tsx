@@ -104,9 +104,9 @@ function ShopPage() {
     navigate({
       search: (prev: z.infer<typeof shopSearchSchema>) => {
         const updated = { ...prev, ...next, page: 1 };
-        // Ensure categories match the schema
+        // Ensure categories match the schema - convert to valid category literals
         if (updated.categories) {
-          updated.categories = updated.categories.filter((cat) => categoryNames.includes(cat as any)) as any;
+          updated.categories = updated.categories.filter((cat) => categoryNames.includes(cat as any)) as any as ("Dresses" | "Footwear" | "Jewelry" | "Bags" | "Accessories")[];
         }
         return updated;
       },

@@ -102,7 +102,7 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
           Don't have an account?{" "}
-          <Link to="/signup" params={{}} className="font-semibold text-primary hover:underline">
+          <Link to="/signup" params={{}} search={{}} className="font-semibold text-primary hover:underline">
             Sign up
           </Link>
         </p>
