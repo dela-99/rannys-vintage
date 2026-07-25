@@ -103,10 +103,10 @@ function ShopPage() {
   const updateFilters = (next: Partial<ShopFilterState>) => {
     navigate({
       search: (prev: z.infer<typeof shopSearchSchema>) => {
-        const updated = { ...prev, ...next, page: 1 };
+        const updated = { ...prev, ...next, page: 1 } as z.infer<typeof shopSearchSchema>;
         // Ensure categories match the schema - convert to valid category literals
-        if (updated.categories) {
-          updated.categories = updated.categories.filter((cat) => categoryNames.includes(cat as any)) as any as ("Dresses" | "Footwear" | "Jewelry" | "Bags" | "Accessories")[];
+        if (updated.categories && Array.isArray(updated.categories)) {
+          updated.categories = (updated.categories.filter((cat) => categoryNames.includes(cat as any)) as unknown) as ("Dresses" | "Footwear" | "Jewelry" | "Bags" | "Accessories")[] | undefined;
         }
         return updated;
       },
