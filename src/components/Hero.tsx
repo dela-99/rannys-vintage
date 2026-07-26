@@ -18,9 +18,9 @@ export function Hero() {
         <div className="max-w-2xl space-y-6 animate-[fade-up_0.9s_cubic-bezier(0.22,1,0.36,1)_both]">
           <p className="font-accent text-xs text-primary-glow">The November Drop · 2026</p>
           <h1 className="font-display text-5xl leading-[0.95] text-white md:text-7xl lg:text-8xl">
-            Chic.
+            Chic Clothing.
             <br />
-            <span className="italic text-gradient">Stylishly</span> Confident.
+            <span className="italic text-gradient">Confidently</span> Stylish.
           </h1>
           <p className="max-w-md text-base text-white/80 md:text-lg">
             Handpicked New Styles arriving weekly — for the woman who walks in like she owns the
