@@ -16,7 +16,7 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-24 md:px-12 md:pb-32">
         <div className="max-w-2xl space-y-6 animate-[fade-up_0.9s_cubic-bezier(0.22,1,0.36,1)_both]">
-          <p className="font-accent text-xs text-primary-glow">The November Drop · 2026</p>
+          <p className="font-accent text-xs text-primary-glow">Every Season Drop · 2026</p>
           <h1 className="font-display text-5xl leading-[0.95] text-white md:text-7xl lg:text-8xl">
             Chic Clothing.
             <br />

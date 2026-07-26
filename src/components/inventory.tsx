@@ -3,29 +3,28 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { DataTable } from "@/components/admin/DataTable";
 import { EmptyState } from "@/components/admin/EmptyState";
 
-export const Route = createFileRoute("/admin/orders")({
-  component: OrdersComponent,
+export const Route = createFileRoute("/admin/inventory")({
+  component: InventoryComponent,
 });
 
 const columns = [
-  { accessorKey: "orderNumber", header: "Order Number" },
-  { accessorKey: "customer", header: "Customer" },
+  { accessorKey: "image", header: "Image" },
+  { accessorKey: "product", header: "Product" },
+  { accessorKey: "stock", header: "Stock" },
   { accessorKey: "status", header: "Status" },
-  { accessorKey: "payment", header: "Payment" },
-  { accessorKey: "total", header: "Total" },
-  { accessorKey: "date", header: "Date" },
+  { accessorKey: "category", header: "Category" },
   { accessorKey: "actions", header: "Actions" },
 ];
 
-function OrdersComponent() {
+function InventoryComponent() {
   return (
     <div className="space-y-6">
-      <PageHeader title="Orders" />
+      <PageHeader title="Inventory" />
       <div className="rounded-2xl border border-border bg-white p-6 shadow-card">
         <DataTable
           columns={columns}
           data={[]}
-          emptyState={<EmptyState message="No orders to display." />}
+          emptyState={<EmptyState message="No inventory available." />}
         />
       </div>
     </div>

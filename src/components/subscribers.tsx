@@ -1,0 +1,35 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { DataTable } from "@/components/admin/DataTable";
+import { EmptyState } from "@/components/admin/EmptyState";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+
+export const Route = createFileRoute("/admin/subscribers")({
+  component: SubscribersComponent,
+});
+
+const columns = [
+  { accessorKey: "email", header: "Email" },
+  { accessorKey: "date", header: "Date" },
+  { accessorKey: "status", header: "Status" },
+];
+
+function SubscribersComponent() {
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Subscribers">
+        <Button variant="outline" className="bg-white">
+          <Download className="mr-2 h-4 w-4" /> Export
+        </Button>
+      </PageHeader>
+      <div className="rounded-2xl border border-border bg-white p-6 shadow-card">
+        <DataTable
+          columns={columns}
+          data={[]}
+          emptyState={<EmptyState message="No subscribers yet." />}
+        />
+      </div>
+    </div>
+  );
+}

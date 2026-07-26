@@ -3,29 +3,27 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { DataTable } from "@/components/admin/DataTable";
 import { EmptyState } from "@/components/admin/EmptyState";
 
-export const Route = createFileRoute("/admin/orders")({
-  component: OrdersComponent,
+export const Route = createFileRoute("/admin/customers")({
+  component: CustomersComponent,
 });
 
 const columns = [
-  { accessorKey: "orderNumber", header: "Order Number" },
-  { accessorKey: "customer", header: "Customer" },
+  { accessorKey: "name", header: "Name" },
+  { accessorKey: "email", header: "Email" },
+  { accessorKey: "orders", header: "Orders" },
+  { accessorKey: "joined", header: "Joined" },
   { accessorKey: "status", header: "Status" },
-  { accessorKey: "payment", header: "Payment" },
-  { accessorKey: "total", header: "Total" },
-  { accessorKey: "date", header: "Date" },
-  { accessorKey: "actions", header: "Actions" },
 ];
 
-function OrdersComponent() {
+function CustomersComponent() {
   return (
     <div className="space-y-6">
-      <PageHeader title="Orders" />
+      <PageHeader title="Customers" />
       <div className="rounded-2xl border border-border bg-white p-6 shadow-card">
         <DataTable
           columns={columns}
           data={[]}
-          emptyState={<EmptyState message="No orders to display." />}
+          emptyState={<EmptyState message="No customers found." />}
         />
       </div>
     </div>
