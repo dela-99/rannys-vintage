@@ -18,11 +18,9 @@ function MessagesComponent() {
             <p>No messages</p>
           </div>
         </div>
-        <div className="col-span-2 flex flex-col items-center justify-center p-4 text-center text-muted-foreground">
+        <div className="md:col-span-2 flex flex-col items-center justify-center p-4 text-center text-muted-foreground">
           <MessageSquareText className="h-16 w-16" />
-          <h3 className="mt-4 font-display text-xl">
-            Select a message to read
-          </h3>
+          <h3 className="mt-4 font-display text-xl">Select a message to read</h3>
           <p>Your conversations will appear here.</p>
         </div>
       </div>

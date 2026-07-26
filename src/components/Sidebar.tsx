@@ -1,4 +1,4 @@
-ndaimport {
+import {
   LayoutDashboard,
   ShoppingBag,
   Package,
@@ -43,11 +43,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;
-      if (
-        !sidebarOpen ||
-        sidebar.current.contains(target) ||
-        trigger.current.contains(target)
-      )
+      if (!sidebarOpen || sidebar.current.contains(target) || trigger.current.contains(target))
         return;
       setSidebarOpen(false);
     };
@@ -68,6 +64,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   return (
     <aside
       ref={sidebar}
+      id="sidebar"
       className={`absolute left-0 top-0 z-9999 flex h-screen w-72 flex-col overflow-y-hidden bg-foreground duration-300 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
@@ -77,9 +74,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
           <span className="font-display text-2xl font-bold tracking-tight text-white md:text-3xl">
             Ranny's
           </span>
-          <span className="font-accent ml-1 text-[10px] text-primary-glow">
-            Vintage Clothing
-          </span>
+          <span className="font-accent ml-1 text-[10px] text-primary-glow">Vintage Clothing</span>
         </Link>
 
         <button
@@ -87,12 +82,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
           onClick={() => setSidebarOpen(!sidebarOpen)}
           aria-controls="sidebar"
           aria-expanded={sidebarOpen}
+          aria-label="Toggle sidebar"
           className="block lg:hidden text-white"
         >
           <ChevronLeft
-            className={`h-6 w-6 transition-transform ${
-              sidebarOpen ? "" : "rotate-180"
-            }`}
+            className={`h-6 w-6 transition-transform ${sidebarOpen ? "" : "rotate-180"}`}
           />
         </button>
       </div>

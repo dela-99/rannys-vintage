@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { Button } from "@/components/ui/button";
-import { Plus, Ticket } from "lucide-react";
+import { Plus } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Placeholder } from "@/components/Placeholder";
 
 export const Route = createFileRoute("/admin/promotions")({
@@ -12,9 +13,16 @@ function PromotionsComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Promotions">
-        <Button>
-          <Plus className="mr-2 h-4 w-4" /> Create Promotion
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button disabled>
+                <Plus className="mr-2 h-4 w-4" /> Create Promotion
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Coming soon!</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </PageHeader>
 
       <div className="space-y-8">

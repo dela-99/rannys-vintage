@@ -39,11 +39,7 @@ export function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
             </div>
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                placeholder="Describe the product..."
-                rows={5}
-              />
+              <Textarea id="description" placeholder="Describe the product..." rows={5} />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -80,11 +76,7 @@ export function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="old-price">Old Price (GH₵)</Label>
-                <Input
-                  id="old-price"
-                  type="number"
-                  placeholder="300.00 (Optional)"
-                />
+                <Input id="old-price" type="number" placeholder="300.00 (Optional)" />
               </div>
             </div>
 
