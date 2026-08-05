@@ -8,7 +8,7 @@ import {
   Package,
   Archive,
 } from "lucide-react";
-import { StatCard } from "@/components/admin/StatCard";
+import { StatCard } from "@/components/StatCard";
 import { Placeholder } from "@/components/Placeholder";
 
 export const Route = createFileRoute("/admin/dashboard")({
@@ -31,12 +31,7 @@ function DashboardComponent() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 xl:grid-cols-4">
         {stats.map((stat) => (
-          <StatCard
-            key={stat.label}
-            icon={stat.icon}
-            label={stat.label}
-            value={stat.value}
-          />
+          <StatCard key={stat.label} icon={stat.icon} label={stat.label} value={stat.value} />
         ))}
       </div>
 

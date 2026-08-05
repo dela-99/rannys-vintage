@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/admin/PageHeader";
+import { PageHeader } from "@/components/PageHeader";
 import { Placeholder } from "@/components/Placeholder";
 
 export const Route = createFileRoute("/admin/settings")({

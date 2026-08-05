@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/admin/PageHeader";
-import { DataTable } from "@/components/admin/DataTable";
-import { EmptyState } from "@/components/admin/EmptyState";
+import { PageHeader } from "@/components/PageHeader";
+import { DataTable } from "@/components/DataTable";
+import { EmptyState } from "@/components/EmptyState";
 
 export const Route = createFileRoute("/admin/orders")({
   component: OrdersComponent,
@@ -17,7 +17,7 @@ const columns = [
   { accessorKey: "actions", header: "Actions" },
 ];
 
-function OrdersComponent() {
+export function OrdersComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Orders" />

@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PageHeader } from "@/components/admin/PageHeader";
-import { DataTable } from "@/components/admin/DataTable";
-import { EmptyState } from "@/components/admin/EmptyState";
+import { PageHeader } from "@/components/PageHeader";
+import { DataTable } from "@/components/DataTable";
+import { EmptyState } from "@/components/EmptyState";
 import { Button } from "@/components/ui/button";
 import { Plus, Upload, Download, Search } from "lucide-react";
-import { AddProductModal } from "@/components/admin/AddProductModal";
+import { AddProductModal } from "@/components/AddProductModal";
 import { useState } from "react";
 
 export const Route = createFileRoute("/admin/products")({

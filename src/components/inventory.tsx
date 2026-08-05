@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/admin/PageHeader";
-import { DataTable } from "@/components/admin/DataTable";
-import { EmptyState } from "@/components/admin/EmptyState";
+import { PageHeader } from "@/components/PageHeader";
+import { DataTable } from "@/components/DataTable";
+import { EmptyState } from "@/components/EmptyState";
 
 export const Route = createFileRoute("/admin/inventory")({
   component: InventoryComponent,

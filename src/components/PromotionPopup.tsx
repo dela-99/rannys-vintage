@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as React from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { X } from "lucide-react";

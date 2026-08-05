@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/admin/PageHeader";
+import { PageHeader } from "@/components/PageHeader";
 import { HomepageManagerComponent } from "@/components/HomepageManager";
 
 export const Route = createFileRoute("/admin/homepage")({
@@ -8,6 +8,9 @@ export const Route = createFileRoute("/admin/homepage")({
 
 function HomepageManager() {
   return (
-    <div className="space-y-6"><PageHeader title="Homepage Manager" /><HomepageManagerComponent /></div>
+    <div className="space-y-6">
+      <PageHeader title="Homepage Manager" />
+      <HomepageManagerComponent />
+    </div>
   );
 }

@@ -36,12 +36,13 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   const location = useLocation();
   const { pathname } = location;
 
-  const trigger = useRef<any>(null);
-  const sidebar = useRef<any>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const sidebar = useRef<HTMLElement>(null);
 
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
+      if (!(target instanceof Node)) return;
       if (!sidebar.current || !trigger.current) return;
       if (!sidebarOpen || sidebar.current.contains(target) || trigger.current.contains(target))
         return;
@@ -99,7 +100,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
                 <Link
                   to={item.to}
                   className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium text-background/70 duration-300 ease-in-out hover:bg-primary-soft/20 hover:text-white ${
-                    pathname.includes(item.to) && "bg-primary-soft/20 text-white"
+                    pathname.includes(item.to) ? "bg-primary-soft/20 text-white" : ""
                   }`}
                 >
                   <item.icon className="h-5 w-5" />

@@ -6,16 +6,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { ReactNode } from "react";
 
 interface ColumnDef {
   accessorKey: string;
   header: string;
 }
 
+type TableRowData = Record<string, ReactNode>;
+
 interface DataTableProps {
   columns: ColumnDef[];
-  data: any[];
-  emptyState: React.ReactNode;
+  data: TableRowData[];
+  emptyState: ReactNode;
 }
 
 export function DataTable({ columns, data, emptyState }: DataTableProps) {
@@ -34,9 +37,7 @@ export function DataTable({ columns, data, emptyState }: DataTableProps) {
             data.map((row, index) => (
               <TableRow key={index}>
                 {columns.map((column) => (
-                  <TableCell key={column.accessorKey}>
-                    {row[column.accessorKey]}
-                  </TableCell>
+                  <TableCell key={column.accessorKey}>{row[column.accessorKey]}</TableCell>
                 ))}
               </TableRow>
             ))

@@ -1,24 +1,38 @@
-import { useState } from "react";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import * as React from "react";
+import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Lock, Mail, User } from "lucide-react";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { GoogleIcon } from "@/components/GoogleIcon";
-import { signInWithGoogle } from "@/lib/auth";
+import { useAuth } from "@/auth";
+import { authService } from "@/services/authService";
 
 export function SignupPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const { signUp, user } = useAuth();
+  const navigate = useNavigate();
+  const [error, setError] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      await signUp(name, email, password);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An unknown error occurred.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleGoogleSignUp = async () => {
     setIsLoading(true);
-    setStatusMessage(null);
-    const result = await signInWithGoogle();
-    setStatusMessage(
-      result.success ? "Google sign-up is primed for the next Appwrite OAuth step." : result.reason,
-    );
+    await authService.signInWithGoogle();
     setIsLoading(false);
   };
 
@@ -38,9 +52,9 @@ export function SignupPage() {
         </p>
       }
     >
-      {statusMessage ? (
+      {error ? (
         <div className="mb-4 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-primary">
-          {statusMessage}
+          {error}
         </div>
       ) : null}
 
@@ -55,7 +69,7 @@ export function SignupPage() {
           {isLoading ? "Preparing OAuth…" : "Continue with Google"}
         </button>
 
-        <form className="space-y-4 text-left" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-4 text-left" onSubmit={handleSignUp}>
           <div className="space-y-2">
             <label className="ml-4 text-[10px] font-accent uppercase tracking-[0.2em] text-muted-foreground">
               Full name
@@ -64,11 +78,10 @@ export function SignupPage() {
               <User className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
+                name="name"
                 required
                 className="h-12 w-full rounded-full border border-border bg-[#f7f3ff] pl-12 pr-4 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 placeholder="Jane Doe"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
               />
             </div>
           </div>
@@ -81,11 +94,10 @@ export function SignupPage() {
               <Mail className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="email"
+                name="email"
                 required
                 className="h-12 w-full rounded-full border border-border bg-[#f7f3ff] pl-12 pr-4 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -98,17 +110,17 @@ export function SignupPage() {
               <Lock className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="password"
+                name="password"
                 required
                 className="h-12 w-full rounded-full border border-border bg-[#f7f3ff] pl-12 pr-4 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
 
           <button
             type="submit"
+            disabled={isLoading}
             className="font-accent group inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-4 py-3.5 text-sm font-semibold text-background transition-colors hover:bg-primary"
           >
             Start my journey

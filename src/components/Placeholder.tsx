@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export function Placeholder({ title }: { title: string }) {
   return (
     <div className="rounded-2xl border border-border bg-white p-8 shadow-card">

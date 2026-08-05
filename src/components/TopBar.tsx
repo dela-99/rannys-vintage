@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Search, Bell, Menu } from "lucide-react";
-import avatar from "@/assets/ranny-avatar.jpg";
+import { Search, Bell, Menu, UserCircle } from "lucide-react";
 
 interface TopBarProps {
   sidebarOpen: boolean;
@@ -50,7 +49,12 @@ export function TopBar({ sidebarOpen, setSidebarOpen }: TopBarProps) {
               2
             </span>
           </button>
-          <img src={avatar} alt="Ranny" className="h-10 w-10 rounded-full" />
+          <div
+            aria-label="Ranny profile"
+            className="grid h-10 w-10 place-items-center rounded-full bg-primary-soft text-primary"
+          >
+            <UserCircle className="h-6 w-6" />
+          </div>
         </div>
       </div>
     </header>

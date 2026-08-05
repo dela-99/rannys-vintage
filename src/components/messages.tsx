@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/admin/PageHeader";
+import { PageHeader } from "@/components/PageHeader";
 import { Inbox, MessageSquareText, Send } from "lucide-react";
 
 export const Route = createFileRoute("/admin/messages")({

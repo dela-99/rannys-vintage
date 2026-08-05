@@ -2,14 +2,18 @@ import { AdminLayout } from "@/components/AdminLayout";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin")({
-  component: AdminComponent,
   beforeLoad: ({ location }) => {
     if (location.pathname === "/admin" || location.pathname === "/admin/") {
-      throw redirect({ to: "/admin/dashboard" });
+      throw redirect({ to: "/admin/promotions" });
     }
   },
+  component: AdminRouteComponent,
 });
 
-function AdminComponent() {
-  return <AdminLayout>{<Outlet />}</AdminLayout>;
+function AdminRouteComponent() {
+  return (
+    <AdminLayout>
+      <Outlet />
+    </AdminLayout>
+  );
 }
