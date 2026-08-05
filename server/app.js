@@ -9,6 +9,8 @@ import appwriteProductRoutes from "./routes/appwriteProductRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import operationsRoutes from "./routes/operationsRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import subscriberRoutes from "./routes/subscriberRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
@@ -70,6 +72,8 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/appwrite/products", appwriteProductRoutes);
 app.use("/api/admin/products", appwriteAdminProductRoutes);
+app.use("/api/admin/operations", operationsRoutes);
+app.use("/api/messages", messageRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/banners", bannerRoutes);

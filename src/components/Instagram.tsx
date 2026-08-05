@@ -1,12 +1,6 @@
-import d1 from "@/assets/product-dress-1.jpg";
-import d2 from "@/assets/product-dress-2.jpg";
-import d3 from "@/assets/product-dress-3.jpg";
-import h from "@/assets/product-heels.jpg";
-import b from "@/assets/product-bag.jpg";
-import c from "@/assets/collection-side-1.jpg";
 import { Instagram as IG } from "lucide-react";
 
-const tiles = [d1, d2, d3, h, b, c];
+const tiles = Array.from({ length: 6 });
 
 export function Instagram() {
   return (
@@ -34,12 +28,7 @@ export function Instagram() {
               rel="noreferrer"
               className="group relative aspect-square overflow-hidden rounded-xl"
             >
-              <img
-                src={src}
-                alt={`Instagram post ${i + 1}`}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+              <div className="h-full w-full bg-gradient-to-br from-primary-soft via-background to-primary/30 transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 grid place-items-center bg-primary/0 transition group-hover:bg-primary/70">
                 <IG className="h-6 w-6 text-white opacity-0 transition group-hover:opacity-100" />
               </div>

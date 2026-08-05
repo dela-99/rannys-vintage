@@ -41,13 +41,20 @@ export function Trending() {
           </p>
         </div>
 
-        {products.length > 0 && (
+        {products.length > 0 ? (
           <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-6">
             {products.map((p) => (
               <div key={p.id} className="text-foreground">
                 <ProductCard product={p} />
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="flex min-h-[250px] flex-col items-center justify-center rounded-3xl border border-dashed border-border/20 bg-background/5 px-4 py-12 text-center">
+            <h3 className="font-display text-2xl text-background">Trending soon.</h3>
+            <p className="mt-2 max-w-sm text-sm text-background/70">
+              We're preparing our latest collection. Check back soon for our newest arrivals.
+            </p>
           </div>
         )}
       </div>

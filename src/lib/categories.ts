@@ -8,6 +8,3 @@ export {
   type Product,
   type Subcategory,
 } from "@/data/products";
-import type { Product } from "@/data/products";
-
-export const allProducts: Product[] = [];

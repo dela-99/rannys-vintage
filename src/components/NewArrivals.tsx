@@ -48,13 +48,20 @@ export function NewArrivals() {
           </button>
         </div>
 
-        {products.length > 0 && (
+        {products.length > 0 ? (
           <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 no-scrollbar md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
             {products.map((p) => (
               <div key={p.id} className="w-[78%] shrink-0 snap-start md:w-auto">
                 <ProductCard product={p} />
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-muted/20 px-4 py-12 text-center">
+            <h3 className="font-display text-2xl text-foreground">New arrivals coming soon.</h3>
+            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+              We're preparing our latest collection of boutique pieces. Check back soon for fresh drops.
+            </p>
           </div>
         )}
       </div>

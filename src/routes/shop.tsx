@@ -217,6 +217,8 @@ function ShopPage() {
                 <SkeletonGrid />
               ) : error ? (
                 <LoadError message={error} onRetry={() => window.location.reload()} />
+              ) : products.length === 0 ? (
+                <CatalogueEmptyState />
               ) : visible.length === 0 ? (
                 <EmptyState onReset={() => navigate({ search: { page: 1 }, replace: true })} />
               ) : (
@@ -348,6 +350,20 @@ function EmptyState({ onReset }: { onReset: () => void }) {
       >
         Clear filters
       </button>
+    </div>
+  );
+}
+
+function CatalogueEmptyState() {
+  return (
+    <div className="flex min-h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/20 py-20 text-center">
+      <div className="grid h-16 w-16 place-items-center rounded-full bg-primary-soft">
+        <Search className="h-7 w-7 text-primary" />
+      </div>
+      <h3 className="font-display mt-4 text-2xl">We're preparing our latest collection</h3>
+      <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+        Our boutique catalogue is currently empty. Check back soon for our newest arrivals.
+      </p>
     </div>
   );
 }

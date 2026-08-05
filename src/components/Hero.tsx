@@ -1,16 +1,10 @@
-import heroImg from "@/assets/hero.jpg";
 import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
     <section className="relative h-svh min-h-[640px] w-full overflow-hidden">
-      <img
-        src={heroImg}
-        alt="Confident woman in a flowing purple dress"
-        width={1080}
-        height={1920}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,hsl(var(--primary)/0.45),transparent_32%),linear-gradient(135deg,hsl(var(--foreground))_0%,hsl(var(--primary)/0.88)_48%,hsl(var(--background))_100%)]" />
+      <div className="absolute right-0 top-0 h-full w-2/3 bg-[linear-gradient(135deg,transparent,rgba(255,255,255,0.18))]" />
       <div className="absolute inset-0 gradient-dark-overlay" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
 

@@ -1,19 +1,15 @@
-import main from "@/assets/collection-main.jpg";
-import side1 from "@/assets/collection-side-1.jpg";
-import side2 from "@/assets/collection-side-2.jpg";
 import { ArrowRight } from "lucide-react";
 
 export function FeaturedCollection() {
   return (
     <section className="px-4 py-20 md:px-8 md:py-28">
       <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 md:gap-10">
-        <div className="relative overflow-hidden rounded-3xl shadow-card">
-          <img
-            src={main}
-            alt="The Confidence Edit"
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
+        <div className="relative min-h-[420px] overflow-hidden rounded-3xl bg-gradient-to-br from-foreground via-primary to-primary-soft shadow-card">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_22%,rgba(255,255,255,0.35),transparent_34%)]" />
+          <div className="absolute bottom-8 left-8 max-w-xs text-white">
+            <p className="font-accent text-[10px] text-white/70">Real Collection Pending</p>
+            <p className="font-display mt-2 text-4xl">Boutique imagery coming soon.</p>
+          </div>
         </div>
         <div className="flex flex-col justify-between gap-6">
           <div className="space-y-5">
@@ -31,18 +27,8 @@ export function FeaturedCollection() {
             </button>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img
-              src={side1}
-              alt="Jewelry detail"
-              loading="lazy"
-              className="aspect-square w-full rounded-2xl object-cover shadow-card"
-            />
-            <img
-              src={side2}
-              alt="Fabric detail"
-              loading="lazy"
-              className="aspect-square w-full rounded-2xl object-cover shadow-card"
-            />
+            <div className="aspect-square w-full rounded-2xl bg-gradient-to-br from-primary-soft to-primary/40 shadow-card" />
+            <div className="aspect-square w-full rounded-2xl bg-gradient-to-br from-foreground/90 to-primary/50 shadow-card" />
           </div>
         </div>
       </div>

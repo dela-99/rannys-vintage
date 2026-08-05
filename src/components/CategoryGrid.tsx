@@ -1,18 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import dress from "@/assets/product-dress-3.jpg";
-import shoes from "@/assets/product-heels.jpg";
-import jewel from "@/assets/collection-side-1.jpg";
-import bag from "@/assets/product-bag.jpg";
-import accessories from "@/assets/product-chains.jpg"; // Re-using chains image for accessories
-import newArrivals from "@/assets/collection-main.jpg"; // Re-using collection image for new arrivals
 
 const categories = [
-  { name: "Dresses", to: "/shop", search: { category: "Dresses" }, img: dress },
-  { name: "Footwear", to: "/shop", search: { category: "Footwear" }, img: shoes },
-  { name: "Jewellery", to: "/shop", search: { category: "Jewellery" }, img: jewel },
-  { name: "Bags", to: "/shop", search: { category: "Bags" }, img: bag },
-  { name: "Accessories", to: "/shop", search: { category: "Accessories" }, img: accessories },
-  { name: "New Arrivals", to: "/shop", search: { newOnly: true }, img: newArrivals },
+  { name: "Dresses", to: "/shop", search: { category: "Dresses" }, accent: "from-primary/70" },
+  { name: "Footwear", to: "/shop", search: { category: "Footwear" }, accent: "from-amber/70" },
+  { name: "Jewellery", to: "/shop", search: { category: "Jewellery" }, accent: "from-white/25" },
+  { name: "Bags", to: "/shop", search: { category: "Bags" }, accent: "from-primary-glow/60" },
+  { name: "Accessories", to: "/shop", search: { category: "Accessories" }, accent: "from-success/50" },
+  { name: "New Arrivals", to: "/shop", search: { newOnly: true }, accent: "from-primary/80" },
 ];
 
 export function CategoryGrid() {
@@ -34,12 +28,10 @@ export function CategoryGrid() {
               search={c.search}
               className="group relative overflow-hidden rounded-2xl bg-foreground shadow-card transition hover:shadow-hover"
             >
-              <img
-                src={c.img}
-                alt={c.name}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              <div
+                className={`absolute inset-0 bg-gradient-to-t ${c.accent} via-black/35 to-black transition-transform duration-500 group-hover:scale-105`}
               />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(255,255,255,0.24),transparent_34%)]" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity group-hover:from-primary/70" />
               <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-7">
                 <h3 className="font-display mt-1 text-2xl text-white md:text-3xl">{c.name}</h3>
