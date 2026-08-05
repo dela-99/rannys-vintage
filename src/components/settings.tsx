@@ -1,10 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { Placeholder } from "@/components/Placeholder";
-
-export const Route = createFileRoute("/admin/settings")({
-  component: SettingsComponent,
-});
 
 const settingsSections = [
   "Store Information",
@@ -17,7 +12,7 @@ const settingsSections = [
   "Security",
 ];
 
-function SettingsComponent() {
+export function SettingsComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Settings" />

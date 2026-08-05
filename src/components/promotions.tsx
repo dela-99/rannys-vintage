@@ -1,15 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Placeholder } from "@/components/Placeholder";
 
-export const Route = createFileRoute("/admin/promotions")({
-  component: PromotionsComponent,
-});
-
-function PromotionsComponent() {
+export function PromotionsComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Promotions">

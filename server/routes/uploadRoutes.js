@@ -1,11 +1,11 @@
 import express from "express";
 import { removeImage, uploadImages } from "../controllers/uploadController.js";
-import { adminOnly, protect } from "../middleware/authMiddleware.js";
+import { requireAppwriteAdmin } from "../middleware/appwriteAuthMiddleware.js";
 import { upload } from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", protect, adminOnly, upload.array("images", 8), uploadImages);
-router.delete("/", protect, adminOnly, removeImage);
+router.post("/", requireAppwriteAdmin, upload.array("images", 8), uploadImages);
+router.delete("/", requireAppwriteAdmin, removeImage);
 
 export default router;

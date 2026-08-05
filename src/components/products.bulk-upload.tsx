@@ -1,13 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { UploadCloud, Trash2, Check } from "lucide-react";
 
-export const Route = createFileRoute("/admin/products/bulk-upload")({
-  component: BulkUploadComponent,
-});
-
-function BulkUploadComponent() {
+export function BulkUploadComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Bulk Upload">

@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { z } from "zod";
 import { Navbar } from "@/components/Navbar";
@@ -7,9 +7,9 @@ import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
 import { ShopFilters, type ShopFilterState, type SortOption } from "@/components/ShopFilters";
-import { products } from "@/data/products";
+import { categoryNames, type Product } from "@/data/products";
 import { isNewArrival } from "@/lib/dropEngine";
-import { categoryNames } from "@/lib/categories";
+import { productService } from "@/services/productService";
 
 const shopSearchSchema = z.object({
   page: z.preprocess((value) => {
@@ -49,19 +49,56 @@ export const Route = createFileRoute("/shop")({
 });
 
 const PAGE_SIZE = 8;
-const MAX_PRICE = Math.max(...products.map((p) => p.price));
 
 function ShopPage() {
   const filters = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let mounted = true;
+
+    productService
+      .listPublished({ limit: 100 })
+      .then((result) => {
+        if (!mounted) {
+          return;
+        }
+
+        setProducts(result.products);
+        setError("");
+      })
+      .catch((loadError) => {
+        if (!mounted) {
+          return;
+        }
+
+        setError(loadError instanceof Error ? loadError.message : "Products could not be loaded.");
+      })
+      .finally(() => {
+        if (mounted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const page = filters.page ?? 1;
+  const maxPrice = useMemo(
+    () => Math.max(50, ...products.map((product) => product.price)),
+    [products],
+  );
   const filterState = useMemo<ShopFilterState>(
     () => ({
       categories: filters.categories ?? [],
       search: filters.search ?? "",
       sort: filters.sort ?? "featured",
-      priceMax: filters.priceMax ?? MAX_PRICE,
+      priceMax: filters.priceMax ?? maxPrice,
       newOnly: filters.newOnly ?? false,
       trendingOnly: filters.trendingOnly ?? false,
       inStockOnly: filters.inStockOnly ?? false,
@@ -74,10 +111,10 @@ function ShopPage() {
       filters.sort,
       filters.trendingOnly,
       filters.inStockOnly,
+      maxPrice,
     ],
   );
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [loading] = useState(false);
 
   const filtered = useMemo(() => {
     const q = filterState.search.trim().toLowerCase();
@@ -95,7 +132,7 @@ function ShopPage() {
     });
     list = sortProducts(list, filterState.sort);
     return list;
-  }, [filterState]);
+  }, [filterState, products]);
 
   const visible = filtered.slice(0, page * PAGE_SIZE);
   const hasMore = filtered.length > visible.length;
@@ -162,7 +199,7 @@ function ShopPage() {
                 <ShopFilters
                   filters={filterState}
                   onChange={(f) => updateFilters(f)}
-                  maxPrice={MAX_PRICE}
+                  maxPrice={maxPrice}
                 />
               </div>
             </aside>
@@ -178,6 +215,8 @@ function ShopPage() {
 
               {loading ? (
                 <SkeletonGrid />
+              ) : error ? (
+                <LoadError message={error} onRetry={() => window.location.reload()} />
               ) : visible.length === 0 ? (
                 <EmptyState onReset={() => navigate({ search: { page: 1 }, replace: true })} />
               ) : (
@@ -237,11 +276,7 @@ function ShopPage() {
             <X className="h-5 w-5" />
           </button>
         </div>
-        <ShopFilters
-          filters={filterState}
-          onChange={(f) => updateFilters(f)}
-          maxPrice={MAX_PRICE}
-        />
+        <ShopFilters filters={filterState} onChange={(f) => updateFilters(f)} maxPrice={maxPrice} />
         <button
           onClick={() => setMobileOpen(false)}
           className="font-accent mt-6 block w-full rounded-full bg-foreground py-3 text-xs font-semibold text-background"
@@ -249,6 +284,21 @@ function ShopPage() {
           Show {filtered.length} results
         </button>
       </aside>
+    </div>
+  );
+}
+
+function LoadError({ message, onRetry }: { message: string; onRetry: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center">
+      <h3 className="font-display text-2xl">Products could not load</h3>
+      <p className="mt-2 max-w-md text-sm text-muted-foreground">{message}</p>
+      <button
+        onClick={onRetry}
+        className="font-accent mt-6 rounded-full bg-foreground px-6 py-3 text-xs font-semibold text-background hover:bg-primary"
+      >
+        Retry
+      </button>
     </div>
   );
 }

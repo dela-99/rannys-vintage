@@ -9,7 +9,7 @@ import newArrivals from "@/assets/collection-main.jpg"; // Re-using collection i
 const categories = [
   { name: "Dresses", to: "/shop", search: { category: "Dresses" }, img: dress },
   { name: "Footwear", to: "/shop", search: { category: "Footwear" }, img: shoes },
-  { name: "Jewelry", to: "/shop", search: { category: "Jewelry" }, img: jewel },
+  { name: "Jewellery", to: "/shop", search: { category: "Jewellery" }, img: jewel },
   { name: "Bags", to: "/shop", search: { category: "Bags" }, img: bag },
   { name: "Accessories", to: "/shop", search: { category: "Accessories" }, img: accessories },
   { name: "New Arrivals", to: "/shop", search: { newOnly: true }, img: newArrivals },

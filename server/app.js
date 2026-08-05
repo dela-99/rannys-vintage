@@ -4,6 +4,8 @@ import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
+import appwriteAdminProductRoutes from "./routes/appwriteAdminProductRoutes.js";
+import appwriteProductRoutes from "./routes/appwriteProductRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
@@ -66,6 +68,8 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/appwrite/products", appwriteProductRoutes);
+app.use("/api/admin/products", appwriteAdminProductRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/banners", bannerRoutes);

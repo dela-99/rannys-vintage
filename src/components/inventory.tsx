@@ -1,11 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { EmptyState } from "@/components/EmptyState";
-
-export const Route = createFileRoute("/admin/inventory")({
-  component: InventoryComponent,
-});
 
 const columns = [
   { accessorKey: "image", header: "Image" },
@@ -16,7 +11,7 @@ const columns = [
   { accessorKey: "actions", header: "Actions" },
 ];
 
-function InventoryComponent() {
+export function InventoryComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Inventory" />

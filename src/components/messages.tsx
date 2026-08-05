@@ -1,12 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
-import { Inbox, MessageSquareText, Send } from "lucide-react";
+import { Inbox, MessageSquareText } from "lucide-react";
 
-export const Route = createFileRoute("/admin/messages")({
-  component: MessagesComponent,
-});
-
-function MessagesComponent() {
+export function MessagesComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Messages" />

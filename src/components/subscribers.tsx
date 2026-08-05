@@ -1,13 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { EmptyState } from "@/components/EmptyState";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
-
-export const Route = createFileRoute("/admin/subscribers")({
-  component: SubscribersComponent,
-});
 
 const columns = [
   { accessorKey: "email", header: "Email" },
@@ -15,7 +10,7 @@ const columns = [
   { accessorKey: "status", header: "Status" },
 ];
 
-function SubscribersComponent() {
+export function SubscribersComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Subscribers">

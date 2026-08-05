@@ -11,8 +11,10 @@ import {
   LogOut,
   ChevronLeft,
 } from "lucide-react";
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
+import { useAuth } from "@/auth";
+import { toast } from "sonner";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", to: "/admin/dashboard" },
@@ -34,6 +36,8 @@ interface SidebarProps {
 
 export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const { pathname } = location;
 
   const trigger = useRef<HTMLButtonElement>(null);
@@ -51,6 +55,16 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
   });
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success("Signed out successfully.");
+      void navigate({ to: "/" });
+    } catch {
+      toast.error("Logout failed. Please try again.");
+    }
+  };
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -114,13 +128,14 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         <div className="mt-auto px-4 py-4 lg:px-6">
           <ul className="flex flex-col gap-1.5">
             <li>
-              <Link
-                to="/login"
+              <button
+                type="button"
+                onClick={handleLogout}
                 className="group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium text-background/70 duration-300 ease-in-out hover:bg-primary-soft/20 hover:text-white"
               >
                 <LogOut className="h-5 w-5" />
                 Logout
-              </Link>
+              </button>
             </li>
           </ul>
         </div>

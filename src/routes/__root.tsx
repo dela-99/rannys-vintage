@@ -3,6 +3,7 @@ import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/r
 import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/CartDrawer";
 import { AuthProvider } from "@/auth";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -76,6 +77,7 @@ function RootComponent() {
         <CartProvider>
           <Outlet />
           <CartDrawer />
+          <Toaster />
         </CartProvider>
       </AuthProvider>
     </QueryClientProvider>

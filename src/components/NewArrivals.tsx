@@ -1,8 +1,33 @@
-import { products } from "@/data/products";
 import { ProductCard } from "./ProductCard";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { productService } from "@/services/productService";
+import type { Product } from "@/data/products";
 
 export function NewArrivals() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    productService
+      .listPublished({ limit: 4 })
+      .then((result) => {
+        if (mounted) {
+          setProducts(result.products);
+        }
+      })
+      .catch(() => {
+        if (mounted) {
+          setProducts([]);
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <section className="px-4 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-7xl">
@@ -23,13 +48,15 @@ export function NewArrivals() {
           </button>
         </div>
 
-        <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 no-scrollbar md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
-          {products.slice(0, 4).map((p) => (
-            <div key={p.id} className="w-[78%] shrink-0 snap-start md:w-auto">
-              <ProductCard product={p} />
-            </div>
-          ))}
-        </div>
+        {products.length > 0 && (
+          <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 no-scrollbar md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
+            {products.map((p) => (
+              <div key={p.id} className="w-[78%] shrink-0 snap-start md:w-auto">
+                <ProductCard product={p} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

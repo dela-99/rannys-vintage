@@ -1,11 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { EmptyState } from "@/components/EmptyState";
-
-export const Route = createFileRoute("/admin/customers")({
-  component: CustomersComponent,
-});
 
 const columns = [
   { accessorKey: "name", header: "Name" },
@@ -15,7 +10,7 @@ const columns = [
   { accessorKey: "status", header: "Status" },
 ];
 
-function CustomersComponent() {
+export function CustomersComponent() {
   return (
     <div className="space-y-6">
       <PageHeader title="Customers" />

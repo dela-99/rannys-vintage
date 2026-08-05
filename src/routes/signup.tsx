@@ -4,10 +4,11 @@ import { ArrowRight, Lock, Mail, User } from "lucide-react";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { GoogleIcon } from "@/components/GoogleIcon";
 import { useAuth } from "@/auth";
-import { authService } from "@/services/authService";
+import { normalizeAuthError } from "@/services/authService";
+import { toast } from "sonner";
 
 export function SignupPage() {
-  const { signUp, user } = useAuth();
+  const { register, loginWithGoogle, user } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -22,19 +23,32 @@ export function SignupPage() {
     const password = formData.get("password") as string;
 
     try {
-      await signUp(name, email, password);
+      await register(name, email, password);
+      toast.success("Account created successfully.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred.");
+      const message = normalizeAuthError(err, "Account registration failed.");
+      setError(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleGoogleSignUp = async () => {
-    setIsLoading(true);
-    await authService.signInWithGoogle();
-    setIsLoading(false);
+  const handleGoogleSignUp = () => {
+    try {
+      loginWithGoogle();
+    } catch (err) {
+      const message = normalizeAuthError(err, "Google signup could not be started.");
+      setError(message);
+      toast.error(message);
+    }
   };
+
+  React.useEffect(() => {
+    if (user) {
+      void navigate({ to: "/" });
+    }
+  }, [navigate, user]);
 
   return (
     <AuthLayout

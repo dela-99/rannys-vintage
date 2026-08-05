@@ -3,71 +3,85 @@ import { GoogleIcon } from "@/components/GoogleIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { normalizeAuthError } from "@/services/authService";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Loader2 } from "lucide-react";
 import * as React from "react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>) => {
     return {
       redirect: (search.redirect as string) || "/",
+      authError: search.authError as string | undefined,
     };
   },
-  component: LoginComponent,
+  component: LoginRouteComponent,
 });
 
-export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
-  const { signIn, user } = useAuth();
-  const navigate = useNavigate();
+function LoginRouteComponent() {
   const search = Route.useSearch();
+
+  return <LoginComponent redirectTo={search.redirect} authError={search.authError} />;
+}
+
+export function LoginComponent({
+  fromAdmin,
+  redirectTo = "/",
+  authError,
+}: {
+  fromAdmin?: boolean;
+  redirectTo?: string;
+  authError?: string;
+}) {
+  const { login, loginWithGoogle, user, role, loading } = useAuth();
+  const navigate = useNavigate();
   const [error, setError] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const isBusy = loading || isSubmitting;
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
+    setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
     try {
-      // This is where the call to your backend API would be.
-      // For this example, we call the auth context directly.
-      await signIn(email, password);
-      // In a real scenario with `fetch`, it would look like this:
-      /*
-        const response = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        });
-
-        if (!response.ok) {
-          // The response is not JSON, handle error.
-          // This prevents the "Unexpected token '<'" error.
-          const text = await response.text();
-          throw new Error(`Login failed: ${response.statusText} - ${text}`);
-        }
-
-        // Now it's safe to parse JSON
-        const data = await response.json();
-        // Proceed with successful login logic...
-        */
+      await login(email, password);
+      toast.success("Signed in successfully.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred.");
+      const message = normalizeAuthError(err);
+      setError(message);
+      toast.error(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    try {
+      loginWithGoogle();
+    } catch (err) {
+      const message = normalizeAuthError(err, "Google login could not be started.");
+      setError(message);
+      toast.error(message);
     }
   };
 
   React.useEffect(() => {
     if (user) {
-      const target = fromAdmin
-        ? user.role === "admin"
-          ? "/admin/promotions"
-          : "/access-denied"
-        : user.role === "admin"
-          ? "/admin/promotions"
-          : search.redirect;
+      const target = fromAdmin ? (role === "admin" ? "/admin/welcome" : "/admin") : redirectTo;
       navigate({ to: target });
     }
-  }, [user, navigate, fromAdmin, search.redirect]);
+  }, [fromAdmin, navigate, redirectTo, role, user]);
+
+  React.useEffect(() => {
+    if (authError === "google_cancelled") {
+      toast.error("Google login was cancelled.");
+    }
+  }, [authError]);
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-background px-4">
@@ -81,7 +95,7 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {fromAdmin
-              ? "Sign in to access the Ranny's Vintage Clothing Admin Dashboard."
+              ? "Sign in to manage Ranny's Vintage Clothing."
               : "Sign in to your account to continue."}
           </p>
         </div>
@@ -96,8 +110,15 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
             <Input id="password" name="password" type="password" required />
           </div>
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" className="w-full">
-            Sign In
+          <Button type="submit" className="w-full" disabled={isBusy}>
+            {isBusy ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Signing In...
+              </>
+            ) : (
+              "Sign In"
+            )}
           </Button>
         </form>
 
@@ -110,7 +131,7 @@ export function LoginComponent({ fromAdmin }: { fromAdmin?: boolean }) {
           </div>
         </div>
 
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full" onClick={handleGoogleLogin} disabled={isBusy}>
           <GoogleIcon className="mr-2 h-4 w-4" />
           Google
         </Button>

@@ -1,90 +1,125 @@
-import { signInWithGoogle as startGoogleSignIn } from "@/lib/auth";
+import { appwriteAccount, isAppwriteConfigured } from "@/lib/appwrite";
+import { getRoleForEmail, type UserRole } from "@/lib/auth-roles";
+import { AppwriteException, ID, OAuthProvider, type Models } from "appwrite";
 
 export type AuthUser = {
-  id?: string;
+  id: string;
   name: string;
   email: string;
-  role: "admin" | string;
+  role: UserRole;
 };
 
-type AuthResponse = {
-  success?: boolean;
-  token?: string;
-  user?: AuthUser;
-  message?: string;
-};
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
-const AUTH_STORAGE_KEY = "rannys-auth-session";
-
-async function readJsonResponse(response: Response): Promise<AuthResponse> {
-  const contentType = response.headers.get("content-type") ?? "";
-
-  if (!contentType.includes("application/json")) {
-    return { message: await response.text() };
+function assertConfigured() {
+  if (!isAppwriteConfigured()) {
+    throw new Error("Appwrite is not configured. Add endpoint and project ID environment values.");
   }
-
-  return (await response.json()) as AuthResponse;
 }
 
-async function requestAuth(endpoint: string, init: RequestInit = {}) {
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...init.headers,
-    },
-  });
-  const payload = await readJsonResponse(response);
+function sanitizeUser(user: Models.User<Models.Preferences>): AuthUser {
+  return {
+    id: user.$id,
+    name: user.name,
+    email: user.email,
+    role: getRoleForEmail(user.email),
+  };
+}
 
-  if (!response.ok) {
-    throw new Error(payload.message || "Authentication request failed.");
+export function normalizeAuthError(error: unknown, fallback = "Authentication failed.") {
+  if (error instanceof AppwriteException) {
+    if (error.type === "user_invalid_credentials" || error.code === 401) {
+      return "The email or password is incorrect.";
+    }
+
+    if (error.type === "user_not_found") {
+      return "No account exists for that email address.";
+    }
+
+    if (error.type === "user_email_already_exists" || error.code === 409) {
+      return "An account already exists for that email address.";
+    }
+
+    if (error.type === "general_network_error") {
+      return "Network error. Check your connection and try again.";
+    }
+
+    return error.message || fallback;
   }
 
-  return payload;
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return fallback;
+}
+
+function buildOAuthRedirectUrl(params: Record<string, string>) {
+  const url = new URL(window.location.href);
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+  return url.toString();
 }
 
 export const authService = {
-  storageKey: AUTH_STORAGE_KEY,
-
   async login(email: string, password: string) {
-    const payload = await requestAuth("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!payload.token || !payload.user) {
-      throw new Error("Authentication response was missing a token or user.");
-    }
-
-    return { token: payload.token, user: payload.user };
+    assertConfigured();
+    await appwriteAccount.createEmailPasswordSession({ email, password });
+    return this.getCurrentUser();
   },
 
-  async getCurrentUser(token: string) {
-    const payload = await requestAuth("/api/auth/me", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
+  async register(name: string, email: string, password: string) {
+    assertConfigured();
+    await appwriteAccount.create({
+      userId: ID.unique(),
+      email,
+      password,
+      name,
     });
-
-    if (!payload.user) {
-      throw new Error("Session response was missing a user.");
-    }
-
-    return payload.user;
+    await appwriteAccount.createEmailPasswordSession({ email, password });
+    return this.getCurrentUser();
   },
 
-  async createAdmin(name: string, email: string, password: string) {
-    const payload = await requestAuth("/api/auth/admins", {
-      method: "POST",
-      body: JSON.stringify({ name, email, password }),
+  loginWithGoogle() {
+    assertConfigured();
+    const success = buildOAuthRedirectUrl({ oauth: "success" });
+    const failure = buildOAuthRedirectUrl({ authError: "google_cancelled" });
+    appwriteAccount.createOAuth2Session({
+      provider: OAuthProvider.Google,
+      success,
+      failure,
     });
-
-    if (!payload.user) {
-      throw new Error("Signup response was missing a user.");
-    }
-
-    return payload.user;
   },
 
-  signInWithGoogle: startGoogleSignIn,
+  async logout() {
+    assertConfigured();
+    try {
+      await appwriteAccount.deleteSession({ sessionId: "current" });
+    } catch (error) {
+      if (error instanceof AppwriteException && error.code === 401) {
+        return;
+      }
+      throw error;
+    }
+  },
+
+  async getCurrentUser() {
+    assertConfigured();
+    const user = await appwriteAccount.get();
+    return sanitizeUser(user);
+  },
+
+  async createJwt() {
+    assertConfigured();
+    const token = await appwriteAccount.createJWT();
+    return token.jwt;
+  },
+
+  async isAuthenticated() {
+    try {
+      await this.getCurrentUser();
+      return true;
+    } catch {
+      return false;
+    }
+  },
 };

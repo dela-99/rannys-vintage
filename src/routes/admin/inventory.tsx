@@ -1,0 +1,6 @@
+import { InventoryComponent } from "@/components/inventory";
+import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/admin/inventory")({
+  component: InventoryComponent,
+});

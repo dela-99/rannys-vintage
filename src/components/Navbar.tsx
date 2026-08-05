@@ -39,9 +39,9 @@ const navLinks: NavLink[] = [
     ],
   },
   {
-    label: "Jewelry",
-    to: "/shop?category=Jewelry",
-    category: "Jewelry",
+    label: "Jewellery",
+    to: "/shop?category=Jewellery",
+    category: "Jewellery",
     subCategories: [
       { label: "Necklaces", to: "/shop?category=Necklaces" },
       { label: "Chains", to: "/shop?category=Chains" },
@@ -55,8 +55,8 @@ const navLinks: NavLink[] = [
     category: "Bags",
     subCategories: [
       { label: "Handbags", to: "/shop?category=Handbags" },
-      { label: "Shoulder Bags", to: "/shop?category=Shoulder Bags" },
-      { label: "Crossbody Bags", to: "/shop?category=Crossbody Bags" },
+      { label: "Crossbody", to: "/shop?category=Crossbody" },
+      { label: "Travel Bags", to: "/shop?category=Travel Bags" },
       { label: "Tote Bags", to: "/shop?category=Tote Bags" },
     ],
   },
@@ -79,7 +79,7 @@ export function Navbar() {
   const bodyLockRef = useRef<{ overflow: string; paddingRight: string } | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const { count, openDrawer } = useCart();
-  const { user, signOut } = useAuth();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -181,7 +181,7 @@ export function Navbar() {
           </button>
           {user ? (
             <button
-              onClick={() => signOut()}
+              onClick={() => void logout()}
               className="hidden items-center gap-2 rounded-full bg-foreground px-4 py-2 text-[10px] font-semibold text-background transition hover:bg-primary md:flex"
             >
               Logout
@@ -225,7 +225,7 @@ export function Navbar() {
               {user ? (
                 <button
                   onClick={() => {
-                    signOut();
+                    void logout();
                     closeMenu();
                   }}
                   className="font-display border-b border-border py-4 text-left text-2xl text-foreground transition-colors duration-200 hover:text-primary"

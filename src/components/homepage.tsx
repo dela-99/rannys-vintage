@@ -1,12 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { HomepageManagerComponent } from "@/components/HomepageManager";
 
-export const Route = createFileRoute("/admin/homepage")({
-  component: HomepageManager,
-});
-
-function HomepageManager() {
+export function HomepageManager() {
   return (
     <div className="space-y-6">
       <PageHeader title="Homepage Manager" />

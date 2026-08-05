@@ -1,4 +1,5 @@
 import { authService, type AuthUser } from "@/services/authService";
+import { hasAdminAccess, type UserRole } from "@/lib/auth-roles";
 import {
   createContext,
   useCallback,
@@ -9,126 +10,120 @@ import {
   type ReactNode,
 } from "react";
 
-type StoredAuthSession = {
-  token: string;
-  user: AuthUser;
-};
-
 type AuthContextValue = {
   user: AuthUser | null;
-  token: string | null;
-  isLoading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (name: string, email: string, password: string) => Promise<void>;
-  signOut: () => void;
+  loading: boolean;
+  role: UserRole | null;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<void>;
+  loginWithGoogle: () => void;
+  logout: () => Promise<void>;
+  isAdmin: boolean;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-function readStoredSession(): StoredAuthSession | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const rawSession = window.localStorage.getItem(authService.storageKey);
-  if (!rawSession) {
-    return null;
-  }
-
-  try {
-    const session = JSON.parse(rawSession) as StoredAuthSession;
-    if (!session.token || !session.user) {
-      return null;
-    }
-    return session;
-  } catch {
-    window.localStorage.removeItem(authService.storageKey);
-    return null;
-  }
-}
-
-function storeSession(session: StoredAuthSession | null) {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  if (!session) {
-    window.localStorage.removeItem(authService.storageKey);
-    return;
-  }
-
-  window.localStorage.setItem(authService.storageKey, JSON.stringify(session));
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [session, setSession] = useState<StoredAuthSession | null>(() => readStoredSession());
-  const [isLoading, setIsLoading] = useState(Boolean(session?.token));
-  const sessionToken = session?.token ?? null;
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const signOut = useCallback(() => {
-    setSession(null);
-    storeSession(null);
+  const refreshUser = useCallback(async () => {
+    try {
+      const currentUser = await authService.getCurrentUser();
+      setUser(currentUser);
+    } catch {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    if (!sessionToken) {
-      setIsLoading(false);
-      return;
-    }
-
     let isMounted = true;
-    setIsLoading(true);
 
     authService
-      .getCurrentUser(sessionToken)
-      .then((user) => {
+      .getCurrentUser()
+      .then((currentUser) => {
         if (!isMounted) {
           return;
         }
-        const verifiedSession = { token: sessionToken, user };
-        setSession(verifiedSession);
-        storeSession(verifiedSession);
+        setUser(currentUser);
       })
       .catch(() => {
         if (isMounted) {
-          signOut();
+          setUser(null);
         }
       })
       .finally(() => {
         if (isMounted) {
-          setIsLoading(false);
+          setLoading(false);
         }
       });
 
     return () => {
       isMounted = false;
     };
-  }, [sessionToken, signOut]);
-
-  const signIn = useCallback(async (email: string, password: string) => {
-    const nextSession = await authService.login(email, password);
-    setSession(nextSession);
-    storeSession(nextSession);
   }, []);
 
-  const signUp = useCallback(
-    async (name: string, email: string, password: string) => {
-      await authService.createAdmin(name, email, password);
-      await signIn(email, password);
-    },
-    [signIn],
-  );
+  const login = useCallback(async (email: string, password: string) => {
+    setLoading(true);
+    try {
+      const nextUser = await authService.login(email, password);
+      setUser(nextUser);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const register = useCallback(async (name: string, email: string, password: string) => {
+    setLoading(true);
+    try {
+      const nextUser = await authService.register(name, email, password);
+      setUser(nextUser);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const loginWithGoogle = useCallback(() => {
+    authService.loginWithGoogle();
+  }, []);
+
+  const logout = useCallback(async () => {
+    setLoading(true);
+    try {
+      await authService.logout();
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const onFocus = () => {
+      void refreshUser();
+    };
+
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
+  }, [refreshUser]);
+
+  const role = user?.role ?? null;
 
   const value = useMemo<AuthContextValue>(
     () => ({
-      user: session?.user ?? null,
-      token: session?.token ?? null,
-      isLoading,
-      signIn,
-      signUp,
-      signOut,
+      user,
+      loading,
+      role,
+      isAuthenticated: Boolean(user),
+      login,
+      register,
+      loginWithGoogle,
+      logout,
+      isAdmin: hasAdminAccess(role),
     }),
-    [isLoading, session, signIn, signOut, signUp],
+    [loading, login, loginWithGoogle, logout, register, role, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

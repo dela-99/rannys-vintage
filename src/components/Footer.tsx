@@ -93,7 +93,7 @@ export function Footer() {
             </li>
             <li>
               <a href="#" className="hover:text-primary-glow">
-                Jewelry
+                Jewellery
               </a>
             </li>
           </ul>

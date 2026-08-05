@@ -15,15 +15,17 @@ import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
 import { DropBadge } from "@/components/DropBadge";
-import { getProductById, getRelatedProducts } from "@/data/products";
 import { formatPrice, getDropStatus } from "@/lib/dropEngine";
 import { useCart } from "@/context/CartContext";
+import { productService } from "@/services/productService";
+import type { Product } from "@/data/products";
 
 export const Route = createFileRoute("/products/$productId")({
-  loader: ({ params }) => {
-    const product = getProductById(params.productId);
+  loader: async ({ params }) => {
+    const product = await productService.getPublishedProduct(params.productId);
     if (!product) throw notFound();
-    return { product };
+    const related = await productService.getRelatedProducts(product);
+    return { product, related };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
@@ -55,9 +57,8 @@ export const Route = createFileRoute("/products/$productId")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const { product, related } = Route.useLoaderData();
   const status = getDropStatus(product.createdAt, product.trending);
-  const related = getRelatedProducts(product);
   const { add, openDrawer } = useCart();
 
   const [activeImage, setActiveImage] = useState(0);
@@ -267,7 +268,7 @@ function ProductPage() {
                 </Link>
               </div>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-                {related.map((p) => (
+                {related.map((p: Product) => (
                   <ProductCard key={p.id} product={p} />
                 ))}
               </div>
